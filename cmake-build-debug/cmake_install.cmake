@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/Ishra/git/L3_efrei/C-C++/projet
+# Install script for directory: C:/Users/Ishra/git/L3_efrei/Asteroids-prj
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/SDLTEST")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/asteroids-prj")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Ishra/git/L3_efrei/Asteroids-prj/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

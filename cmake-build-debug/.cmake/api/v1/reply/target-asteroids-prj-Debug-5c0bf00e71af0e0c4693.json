@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "projet.exe"
+			"path" : "asteroids-prj.exe"
 		},
 		{
-			"path" : "projet.pdb"
+			"path" : "asteroids-prj.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -66,7 +66,7 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet/include/SDL2"
+					"path" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj/include/SDL2"
 				}
 			],
 			"language" : "CXX",
@@ -87,7 +87,7 @@
 			]
 		}
 	],
-	"id" : "projet::@6890427a1f51a3e7e1df",
+	"id" : "asteroids-prj::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -102,7 +102,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\Ishra\\git\\L3_efrei\\C-C++\\projet\\lib",
+				"fragment" : "-LC:\\Users\\Ishra\\git\\L3_efrei\\asteroids-prj\\lib",
 				"role" : "libraryPath"
 			},
 			{
@@ -127,8 +127,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "projet",
-	"nameOnDisk" : "projet.exe",
+	"name" : "asteroids-prj",
+	"nameOnDisk" : "asteroids-prj.exe",
 	"paths" : 
 	{
 		"build" : ".",

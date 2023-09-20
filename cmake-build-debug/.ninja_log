@@ -1,14 +1,9 @@
 # ninja log v5
-6	1302	7168467159442362	CMakeFiles/SDLTEST.dir/main.cpp.obj	4d44f3fd831dd129
-17	2155	7168466058092149	CMakeFiles/SDLTEST.dir/framework.cpp.obj	44080f48dc0b55
-25	589	7169070880697167	build.ninja	8b17ec2d7c02444
-4	7393	7169056499154293	CMakeFiles/projet.dir/main.cpp.obj	3eaf703e699b14d4
+19	521	7169127289990938	build.ninja	8b17ec2d7c02444
 1302	1500	7168467161385318	SDLTEST.exe	1f49261b6dbed044
-37	336	7169049509382677	CMakeFiles/projet.dir/Asteroid.cpp.obj	b4e440c6e0818767
-17	3641	7168543185660575	CMakeFiles/projet.dir/framework.cpp.obj	a000b70cb9a9771b
-7425	7875	7169056503924200	projet.exe	1fea32af1e7d466c
-19	521	7169070880697167	build.ninja	8b17ec2d7c02444
-18	189	7169070885073157	CMakeFiles/projet.dir/FlyingObject.cpp.obj	48a7570b243d12e1
-26	191	7169070885088222	CMakeFiles/projet.dir/Asteroid.cpp.obj	b4e440c6e0818767
-35	1574	7169070898942560	CMakeFiles/projet.dir/main.cpp.obj	3eaf703e699b14d4
 1575	1821	7169070901365739	projet.exe	acd2489d916c844e
+51	394	7169127403387711	CMakeFiles/asteroids-prj.dir/FlyingObject.cpp.obj	bab9d9bfdc200a30
+33	443	7169127403523317	CMakeFiles/asteroids-prj.dir/Asteroid.cpp.obj	38330b4cb0935e6e
+3	3399	7169127433645205	CMakeFiles/asteroids-prj.dir/main.cpp.obj	d492dfe84e936631
+86	3446	7169127434184747	CMakeFiles/asteroids-prj.dir/framework.cpp.obj	5a05872678ff3c79
+3446	3701	7169127436664722	asteroids-prj.exe	6f9318d2af921b78

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug"
+			"value" : "c:/Users/Ishra/git/L3_efrei/Asteroids-prj/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -575,7 +575,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -647,7 +647,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet"
+			"value" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/SDLTEST"
+			"value" : "C:/Program Files (x86)/asteroids-prj"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -687,7 +687,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/ninja/win/x64/ninja.exe"
+			"value" : "C:/Program Files/JetBrains/CLion 2023.2.1/bin/ninja/win/x64/ninja.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -875,67 +875,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "projet"
-		},
-		{
-			"name" : "CMAKE_PROJECT_VERSION",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "0.1.0"
-		},
-		{
-			"name" : "CMAKE_PROJECT_VERSION_MAJOR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "0"
-		},
-		{
-			"name" : "CMAKE_PROJECT_VERSION_MINOR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "1"
-		},
-		{
-			"name" : "CMAKE_PROJECT_VERSION_PATCH",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "0"
-		},
-		{
-			"name" : "CMAKE_PROJECT_VERSION_TWEAK",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : ""
+			"value" : "asteroids-prj"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1314,42 +1254,6 @@
 			"value" : "FALSE"
 		},
 		{
-			"name" : "SDLTEST_BINARY_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug"
-		},
-		{
-			"name" : "SDLTEST_IS_TOP_LEVEL",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "ON"
-		},
-		{
-			"name" : "SDLTEST_SOURCE_DIR",
-			"properties" : 
-			[
-				{
-					"name" : "HELPSTRING",
-					"value" : "Value Computed by CMake"
-				}
-			],
-			"type" : "STATIC",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet"
-		},
-		{
 			"name" : "_CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED",
 			"properties" : 
 			[
@@ -1362,7 +1266,7 @@
 			"value" : "TRUE"
 		},
 		{
-			"name" : "projet_BINARY_DIR",
+			"name" : "asteroids-prj_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1371,10 +1275,10 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug"
+			"value" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj/cmake-build-debug"
 		},
 		{
-			"name" : "projet_IS_TOP_LEVEL",
+			"name" : "asteroids-prj_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1386,7 +1290,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "projet_SOURCE_DIR",
+			"name" : "asteroids-prj_SOURCE_DIR",
 			"properties" : 
 			[
 				{
@@ -1395,7 +1299,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet"
+			"value" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj"
 		}
 	],
 	"kind" : "cache",

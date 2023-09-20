@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "projet",
+					"name" : "asteroids-prj",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "projet::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-projet-Debug-b4f132e0514e2d9aa9de.json",
-					"name" : "projet",
+					"id" : "asteroids-prj::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-asteroids-prj-Debug-5c0bf00e71af0e0c4693.json",
+					"name" : "asteroids-prj",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet/cmake-build-debug",
-		"source" : "C:/Users/Ishra/git/L3_efrei/C-C++/projet"
+		"build" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj/cmake-build-debug",
+		"source" : "C:/Users/Ishra/git/L3_efrei/Asteroids-prj"
 	},
 	"version" : 
 	{
