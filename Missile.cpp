@@ -6,7 +6,7 @@
 #include <cmath>
 
 Missile::Missile(double x, double y, double size, double speed, double angle)
-: x(x), y(y), size(size), speed(speed), angle(angle) {}
+: FlyingObject(x, y, size), speed(speed), angle(angle) {}
 
 ///////////////////////////////////////////////////////
 // déplace selon les vitesses de déplacement de l'objet
@@ -27,20 +27,13 @@ bool Missile::Move(double screenWidth, double screenHeight){
     }
 }
 
-double Missile::GetX(){
-    return x;
-}
-double Missile::GetY(){
-    return y;
-}
+//double Missile::GetX(){ return x; }
+//double Missile::GetY(){ return y; }
+//double Missile::GetSize(){ return size; }
 
 double Missile::GetXSpeed(){
     return speed * cos(angle);
 }
 double Missile::GetYSpeed(){
     return speed * sin(angle);
-}
-
-double Missile::GetSize(){
-    return size;
 }

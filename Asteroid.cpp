@@ -5,40 +5,26 @@
 #include "Asteroid.hpp"
 
 Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed)
-        : x(x), y(y), size(size), xSpeed(xSpeed), ySpeed(ySpeed) {}
+        : FlyingObject(x, y, size), xSpeed(xSpeed), ySpeed(ySpeed) {}
 
-// Getters
-double Asteroid::GetX() {
-    return x;
-}
-double Asteroid::GetY() {
-    return y;
-}
+
 double Asteroid::GetXSpeed() {
     return xSpeed;
 }
 double Asteroid::GetYSpeed() {
     return ySpeed;
 }
-double Asteroid::GetSize() {
-    return size;
-}
 
 // Setters
-void Asteroid::SetX(double x) {
-    this->x = x;
-}
-void Asteroid::SetY(double y) {
-    this->y = y;
-}
+//void Asteroid::SetX(double x) { this->x = x; }
+//void Asteroid::SetY(double y) { this->y = y;}
+//void Asteroid::SetSize(double size) { this->size = size; }
+
 void Asteroid::SetXSpeed(double xSpeed) {
     this->xSpeed = xSpeed;
 }
 void Asteroid::SetYSpeed(double ySpeed) {
     this->ySpeed = ySpeed;
-}
-void Asteroid::SetSize(double size) {
-    this->size = size;
 }
 
 //move

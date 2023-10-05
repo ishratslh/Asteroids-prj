@@ -5,12 +5,10 @@
 #ifndef PROJET_ASTEROID_HPP
 #define PROJET_ASTEROID_HPP
 
+#include "FlyingObject.hpp"
 
-class Asteroid {
-private:
-    double x;        // Position en x
-    double y;        // Position en y
-    double size;     // Taille de l'astéroïde
+class Asteroid : public FlyingObject{
+public:
     double xSpeed;   // Vitesse en x
     double ySpeed;   // Vitesse en y
 
@@ -26,19 +24,14 @@ public:
 
     //////////
     // Getters
-    double GetX();
-    double GetY();
+    //double GetX();double GetY();double GetSize();
     double GetXSpeed();
     double GetYSpeed();
-    double GetSize();
 
     //////////
     // Setters
-    void SetX(double xSpeed);
-    void SetY(double ySpeed);
     void SetXSpeed(double xSpeed);
     void SetYSpeed(double ySpeed);
-    void SetSize(double size);
 
     /////////////////////////
     // Déplacement de l'objet
@@ -53,14 +46,6 @@ public:
     // -------
     // * screenWidth, screenHeight : taille de l'écran
     void Move(double screenWidth, double screenHeight);
-
-    // pour vérifier si l'astéroïde est détruit
-    //bool IsDestroyed();
-
-    // détruire astéroïde
-    //void Destroy();
-
 };
-
 
 #endif //PROJET_ASTEROID_HPP

@@ -17,12 +17,12 @@ public:
     void SetY(double y);
     void SetSize(double size);
 
-private:
+public:
     double x;
     double y;
     double size;
-    double xSpeed;
-    double ySpeed;
+    //double xSpeed;
+    //double ySpeed;
 
 };
 

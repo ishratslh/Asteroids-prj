@@ -48,7 +48,6 @@ int WinMain(int argc, char* argv[])
             missile.Move(fw->GetScreenWidth(), fw->GetScreenHeight());
             fw->DrawMissile(static_cast<int>(missile.GetX()), static_cast<int>(missile.GetY()));
 
-
         }
         delete fw;
         return 0;
