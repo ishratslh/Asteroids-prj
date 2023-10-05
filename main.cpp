@@ -1,6 +1,7 @@
 #include <iostream>
 #include "framework.hpp"
 #include "Asteroid.hpp"
+#include "Missile.hpp"
 
 #include <string>
 #include "include/SDL2/SDL.h"
@@ -15,8 +16,15 @@ int WinMain(int argc, char* argv[])
             fw->GetScreenWidth() / 2.0, // centre
             fw->GetScreenHeight() / 2.0,
             70.0,
-            1.0,  // Vitesse en x
-            1.0   // Vitesse en y
+            5.0,  // Vitesse en x
+            5.0   // Vitesse en y
+        );
+        Missile missile(
+            fw->GetScreenWidth() / 2.0, // centre
+            fw->GetScreenHeight() / 2.0,
+            70.0,
+            5.0,  // Vitesse
+            90.0
         );
 
         while (true) {
@@ -37,6 +45,9 @@ int WinMain(int argc, char* argv[])
             fw->DrawAsteroid(static_cast<int>(asteroid.GetX()), static_cast<int>(asteroid.GetY()), static_cast<int>(asteroid.GetSize()));
 
             //3 Créer une classe Missile
+            missile.Move(fw->GetScreenWidth(), fw->GetScreenHeight());
+            fw->DrawMissile(static_cast<int>(missile.GetX()), static_cast<int>(missile.GetY()));
+
 
         }
         delete fw;

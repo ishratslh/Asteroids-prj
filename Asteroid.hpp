@@ -7,6 +7,13 @@
 
 
 class Asteroid {
+private:
+    double x;        // Position en x
+    double y;        // Position en y
+    double size;     // Taille de l'astéroïde
+    double xSpeed;   // Vitesse en x
+    double ySpeed;   // Vitesse en y
+
 public:
     ///////////////
     // Constructeur
@@ -52,13 +59,6 @@ public:
 
     // détruire astéroïde
     //void Destroy();
-
-private:
-        double x;        // Position en x
-        double y;        // Position en y
-        double size;     // Taille de l'astéroïde
-        double xSpeed;   // Vitesse en x
-        double ySpeed;   // Vitesse en y
 
 };
 
