@@ -16,7 +16,9 @@ add_executable(asteroids-prj main.cpp framework.hpp framework.cpp
         FlyingObject.cpp
         FlyingObject.hpp
         Missile.cpp
-        Missile.hpp)
+        Missile.hpp
+        Spaceship.cpp
+        Spaceship.hpp)
 
 # Link your executable with the necessary libraries
 target_link_libraries(asteroids-prj mingw32 SDL2main SDL2)

@@ -84,6 +84,13 @@ build CMakeFiles/asteroids-prj.dir/Missile.cpp.obj: CXX_COMPILER__asteroids-prj_
   OBJECT_DIR = CMakeFiles\asteroids-prj.dir
   OBJECT_FILE_DIR = CMakeFiles\asteroids-prj.dir
 
+build CMakeFiles/asteroids-prj.dir/Spaceship.cpp.obj: CXX_COMPILER__asteroids-prj_unscanned_Debug C$:/Users/Ishra/git/L3_efrei/Asteroids-prj/Spaceship.cpp || cmake_object_order_depends_target_asteroids-prj
+  DEP_FILE = CMakeFiles\asteroids-prj.dir\Spaceship.cpp.obj.d
+  FLAGS = -g -std=gnu++17 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Ishra/git/L3_efrei/Asteroids-prj/include/SDL2
+  OBJECT_DIR = CMakeFiles\asteroids-prj.dir
+  OBJECT_FILE_DIR = CMakeFiles\asteroids-prj.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target asteroids-prj
@@ -92,7 +99,7 @@ build CMakeFiles/asteroids-prj.dir/Missile.cpp.obj: CXX_COMPILER__asteroids-prj_
 #############################################
 # Link the executable asteroids-prj.exe
 
-build asteroids-prj.exe: CXX_EXECUTABLE_LINKER__asteroids-prj_Debug CMakeFiles/asteroids-prj.dir/main.cpp.obj CMakeFiles/asteroids-prj.dir/framework.cpp.obj CMakeFiles/asteroids-prj.dir/Asteroid.cpp.obj CMakeFiles/asteroids-prj.dir/FlyingObject.cpp.obj CMakeFiles/asteroids-prj.dir/Missile.cpp.obj
+build asteroids-prj.exe: CXX_EXECUTABLE_LINKER__asteroids-prj_Debug CMakeFiles/asteroids-prj.dir/main.cpp.obj CMakeFiles/asteroids-prj.dir/framework.cpp.obj CMakeFiles/asteroids-prj.dir/Asteroid.cpp.obj CMakeFiles/asteroids-prj.dir/FlyingObject.cpp.obj CMakeFiles/asteroids-prj.dir/Missile.cpp.obj CMakeFiles/asteroids-prj.dir/Spaceship.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/Ishra/git/L3_efrei/asteroids-prj/lib

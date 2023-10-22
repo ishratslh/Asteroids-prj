@@ -23,7 +23,7 @@ int main(int argc, char* argv[]){
         double yM = fw->GetScreenHeight() / 2.0;
         double sizeM = 60.0;
         double speedM = 5.0;
-        double angleM = 0.0;
+        double angleM = 90.0;
         bool destroyMissile = false;
         bool destroyAsteroid = false;
 
@@ -52,7 +52,7 @@ int main(int argc, char* argv[]){
                 missile->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
                 fw->DrawMissile(static_cast<int>(missile->GetX()), static_cast<int>(missile->GetY()));
             }
-            //4 Implémentation d'une collision
+            //4 Implémentation d'une collision - destruction des objets
             if (asteroid && missile) {
                 if (FlyingObject::Collide(*asteroid, *missile)) {
                     std::cout << "Hello collision?" << std::endl;
@@ -60,7 +60,16 @@ int main(int argc, char* argv[]){
                     destroyMissile = true;
                 }
             }
-            std::cout << "Before deletion - Asteroid: " << asteroid << ", Missile: " << missile << std::endl;
+
+            //Si le missile sort de l'écran, il est détruit
+            if (missile) {
+                bool outOfScreen = missile->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
+                if (outOfScreen) {
+                    std::cout << "Hello missile out of screen" << std::endl;
+                    destroyMissile = true;
+                }
+            }
+
             if (destroyMissile) {
                 if (missile) {
                     std::cout << "Deleting missile" << std::endl;
@@ -76,7 +85,7 @@ int main(int argc, char* argv[]){
                     asteroid = nullptr;
                 }
             }
-            std::cout << "After deletion - Asteroid: " << asteroid << ", Missile: " << missile << std::endl;
+            std::cout << "Gestion memoire:asteroid " << asteroid << ", Missile: " << missile << std::endl;
 
 
         }
