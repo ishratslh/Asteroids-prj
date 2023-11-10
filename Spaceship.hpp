@@ -18,10 +18,12 @@ public:
     // * x, y : coordonnées du centre de l'astéroïde, en pixels
     // * size : diamètre du vaisseau
     // * angle d'orientation
-    Spaceship(double x, double y, double size, double angle);
+    Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle);
 
     //////////
     // Getters
+    double GetXSpeed();
+    double GetYSpeed();
     double GetAngle();
 
     ///////////////////////

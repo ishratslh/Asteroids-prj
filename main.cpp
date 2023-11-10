@@ -18,14 +18,14 @@ int main(int argc, char* argv[]){
         double sizeA = 70.0;
         double xSpeedA = 5.0;
         double ySpeedA = 5.0;
+        bool destroyAsteroid = false;
 
         double xM = fw->GetScreenWidth() / 4.0;
         double yM = fw->GetScreenHeight() / 2.0;
         double sizeM = 60.0;
         double speedM = 5.0;
-        double angleM = 90.0;
+        double angleM = 0.0;
         bool destroyMissile = false;
-        bool destroyAsteroid = false;
 
         Asteroid *asteroid = new Asteroid(xA, yA,sizeA,xSpeedA,ySpeedA);
         Missile *missile = new Missile(xM,yM,sizeM,speedM,angleM);
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
 
             //2 Créer une classe Asteroid
             if (asteroid) {
-                //asteroid.Move(fw->GetScreenWidth(), fw->GetScreenHeight());
+                //asteroid->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
                 fw->DrawAsteroid(static_cast<int>(asteroid->GetX()), static_cast<int>(asteroid->GetY()),static_cast<int>(asteroid->GetSize()));
             }
 
@@ -87,6 +87,14 @@ int main(int argc, char* argv[]){
             }
             std::cout << "Gestion memoire:asteroid " << asteroid << ", Missile: " << missile << std::endl;
 
+            //5 Class SpaceShip
+            double xS = fw->GetScreenWidth() / 4.0;
+            double yS = fw->GetScreenHeight() / 2.0;
+            double sizeS = 60.0;
+            double speedS = 5.0;
+            double angleS = 0.0;
+            bool warning = false;
+            fw->DrawShip(static_cast<int>(xS), static_cast<int>(yS), static_cast<float>(angleS), 0.0, warning);
 
         }
         delete fw;

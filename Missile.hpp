@@ -9,7 +9,6 @@
 
 class Missile : public FlyingObject{
 public :
-    double speed;
     double angle;
 
 public :

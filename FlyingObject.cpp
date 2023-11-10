@@ -5,8 +5,8 @@
 #include "FlyingObject.hpp"
 #include <cmath>
 
-FlyingObject::FlyingObject(double x, double y, double size)
-        : x(x), y(y), size(size) {}
+FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed)
+        : x(x), y(y), size(size), xSpeed(xSpeed), ySpeed(ySpeed) {}
 
 // Getters
 double FlyingObject::GetX() {
@@ -18,6 +18,13 @@ double FlyingObject::GetY() {
 double FlyingObject::GetSize() {
     return this->size;
 }
+/*double FlyingObject::GetXSpeed() {
+    return this->xSpeed;
+}
+double FlyingObject::GetYSpeed() {
+    return this->ySpeed;
+}*/
+
 
 // Setters
 void FlyingObject::SetX(double x) {
@@ -28,6 +35,12 @@ void FlyingObject::SetY(double y) {
 }
 void FlyingObject::SetSize(double size) {
     this->size = size;
+}
+void FlyingObject::SetXSpeed(double xSpeed) {
+    this->xSpeed = xSpeed;
+}
+void FlyingObject::SetYSpeed(double ySpeed) {
+    this->ySpeed = ySpeed;
 }
 
 

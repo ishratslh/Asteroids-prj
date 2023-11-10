@@ -6,21 +6,36 @@
 #include <cmath>
 
 
-Spaceship::Spaceship(double x, double y, double size, double angle)
-        : FlyingObject(x, y, size), angle(angle) {}
+Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle)
+        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle) {}
 
 double Spaceship::GetAngle(){
-    return angle;
+    return this->angle;
 }
-/*On va donc effectuer un calcul vectoriel (en l’occurrence une addition) :
- on va considérer un facteur d’accélération ou de décélération. Ce facteur est la longueur (la norme)
- du vecteur de poussée. Il faut donc convertir ce vecteur en poussée horizontale et en poussée
- verticale (ce sont les composantes de ce vecteur), puis ajouter (ou retrancher dans le cas de
- la décélération) ces composantes respectivement aux composantes horizontales et verticales de la
-vitesse du vaisseau. Pour effectuer cette conversion, il faudra dont utiliser les rapports trigonométriques*/
+double Spaceship::GetXSpeed(){
+    return xSpeed * cos(angle);
+}
+double Spaceship::GetYSpeed(){
+    return ySpeed * sin(angle);
+}
+/**/
 void Spaceship::SpeedUp(double accelerationFactor){
-    xSpeed += accelerationFactor * cos(angle);
-    ySpeed += accelerationFactor * sin(angle);
+    double radian = angle * M_PI / 180;
+    double xSpeed = accelerationFactor * cos(angle);
+    double ySpeed = accelerationFactor * sin(angle);
+    SetXSpeed(GetXSpeed() + xSpeed);
+    SetYSpeed(GetYSpeed() + ySpeed);
+}
 
+void Spaceship::SpeedDown(double decelerationFactor) {
+    double radian = angle * M_PI / 180;
+    double xSpeed = decelerationFactor * cos(angle);
+    double ySpeed = decelerationFactor * sin(angle);
+    SetXSpeed(GetXSpeed() - xSpeed);
+    SetYSpeed(GetYSpeed() - ySpeed);
+}
+
+void Spaceship::Rotate(double rAngle) {
+    angle += rAngle;
 }
 

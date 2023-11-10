@@ -9,8 +9,8 @@
 
 class Asteroid : public FlyingObject{
 public:
-    double xSpeed;   // Vitesse en x
-    double ySpeed;   // Vitesse en y
+    //double xSpeed;   // Vitesse en x
+    //double ySpeed;   // Vitesse en y
 
 public:
     ///////////////
@@ -24,14 +24,13 @@ public:
 
     //////////
     // Getters
-    //double GetX();double GetY();double GetSize();
     double GetXSpeed();
     double GetYSpeed();
 
     //////////
     // Setters
-    void SetXSpeed(double xSpeed);
-    void SetYSpeed(double ySpeed);
+    //void SetXSpeed(double xSpeed);
+    //void SetYSpeed(double ySpeed);
 
     /////////////////////////
     // Déplacement de l'objet

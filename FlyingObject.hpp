@@ -11,16 +11,23 @@ public:
     double x;
     double y;
     double size;
+    double xSpeed;
+    double ySpeed;
 
 public:
-    FlyingObject(double x, double y, double size);
+    FlyingObject(double x, double y, double size, double xSpeed, double ySpeed);
     // méthodes communs à tous les flying objects
     double GetX();
     double GetY();
     double GetSize();
+    double GetXSpeed();
+    double GetYSpeed();
+
     void SetX(double x);
     void SetY(double y);
     void SetSize(double size);
+    void SetXSpeed(double xSpeed);
+    void SetYSpeed(double ySpeed);
 
     /////////////////////////////
     // Détermination de collision
