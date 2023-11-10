@@ -12,17 +12,17 @@ Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpe
 double Spaceship::GetAngle(){
     return this->angle;
 }
-double Spaceship::GetXSpeed(){
+double Spaceship::GetXSpeed() const{
     return xSpeed * cos(angle);
 }
-double Spaceship::GetYSpeed(){
+double Spaceship::GetYSpeed() const{
     return ySpeed * sin(angle);
 }
-/**/
+
 void Spaceship::SpeedUp(double accelerationFactor){
     double radian = angle * M_PI / 180;
-    double xSpeed = accelerationFactor * cos(angle);
-    double ySpeed = accelerationFactor * sin(angle);
+    double xSpeed = accelerationFactor * cos(radian);
+    double ySpeed = accelerationFactor * sin(radian);
     SetXSpeed(GetXSpeed() + xSpeed);
     SetYSpeed(GetYSpeed() + ySpeed);
 }

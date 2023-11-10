@@ -20,8 +20,8 @@ public:
     double GetX();
     double GetY();
     double GetSize();
-    double GetXSpeed();
-    double GetYSpeed();
+    virtual double GetXSpeed() const = 0;
+    virtual double GetYSpeed() const = 0;
 
     void SetX(double x);
     void SetY(double y);
@@ -36,7 +36,7 @@ public:
     // * o1, o2 : les deux objets à tester
     // -------
     // Renvoie : true si les deux objets se touchent, false sinon
-    static bool Collide(FlyingObject o1, FlyingObject o2);
+    static bool Collide(FlyingObject &o1, FlyingObject &o2);
 
 };
 

@@ -8,28 +8,19 @@ Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed
         : FlyingObject(x, y, size, xSpeed, ySpeed) {}
 
 
-double Asteroid::GetXSpeed() {
+double Asteroid::GetXSpeed() const{
     return xSpeed;
 }
-double Asteroid::GetYSpeed() {
+double Asteroid::GetYSpeed() const{
     return ySpeed;
 }
 
 // Setters
-//void Asteroid::SetX(double x) { this->x = x; }
-//void Asteroid::SetY(double y) { this->y = y;}
-//void Asteroid::SetSize(double size) { this->size = size; }
-
-/*void Asteroid::SetXSpeed(double xSpeed) {
-    this->xSpeed = xSpeed;
-}
-void Asteroid::SetYSpeed(double ySpeed) {
-    this->ySpeed = ySpeed;
-}*/
+/*void Asteroid::SetXSpeed(double xSpeed) { this->xSpeed = xSpeed; }
+void Asteroid::SetYSpeed(double ySpeed) { this->ySpeed = ySpeed; }*/
 
 //move
 void Asteroid::Move() {
-    // avec xSpeed ySpeed
     x += xSpeed;
     y += ySpeed;
 }

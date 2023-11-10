@@ -51,7 +51,7 @@ void FlyingObject::SetYSpeed(double ySpeed) {
 // * o1, o2 : les deux objets à tester
 // -------
 // Renvoie : true si les deux objets se touchent, false sinon
-bool FlyingObject::Collide(FlyingObject o1, FlyingObject o2) {
+bool FlyingObject::Collide(FlyingObject &o1, FlyingObject &o2) {
     double dx = o1.GetX() - o2.GetX();
     double dy = o1.GetY() - o2.GetY();
     double distance = sqrt(dx * dx + dy * dy);

@@ -3,6 +3,7 @@
 #include "Asteroid.hpp"
 #include "Missile.hpp"
 #include "FlyingObject.hpp"
+#include "Spaceship.hpp"
 
 #include <string>
 #include "include/SDL2/SDL.h"
@@ -13,6 +14,7 @@ int main(int argc, char* argv[]){
         std::cout << "Hello asteroids!" << std::endl;
         Framework * fw = new Framework(20, 60, 60);
 
+        //Paramètres d'un asteroide
         double xA = fw->GetScreenWidth() / 2.0;
         double yA = fw->GetScreenHeight() / 2.0;
         double sizeA = 70.0;
@@ -20,6 +22,7 @@ int main(int argc, char* argv[]){
         double ySpeedA = 5.0;
         bool destroyAsteroid = false;
 
+        //Paramètres d'un missile
         double xM = fw->GetScreenWidth() / 4.0;
         double yM = fw->GetScreenHeight() / 2.0;
         double sizeM = 60.0;
@@ -27,11 +30,25 @@ int main(int argc, char* argv[]){
         double angleM = 0.0;
         bool destroyMissile = false;
 
+        //Paramètres de la classe Spaceship
+        double xS = fw->GetScreenWidth() / 4.0;
+        double yS = fw->GetScreenHeight() / 2.0;
+        double sizeS = 60.0;
+        double speedS = 5.0;
+        double angleS = 0.0;
+
+        double accelerationFactor = 0.1;
+        double decelerationFactor = 0.1;
+        double rotationAngle = 10;
+        bool warning = false;
+
+        Spaceship *spaceship = new Spaceship(xS,yS,sizeS,speedS,speedS, angleS);
         Asteroid *asteroid = new Asteroid(xA, yA,sizeA,xSpeedA,ySpeedA);
         Missile *missile = new Missile(xM,yM,sizeM,speedM,angleM);
 
         while (true) {
-            if (fw->GetInput() == SDLK_ESCAPE) {
+            int userInput = fw->GetInput();
+            if (userInput == SDLK_ESCAPE) {
                 break;
             }
             fw->Update(); //effacer écran
@@ -85,16 +102,25 @@ int main(int argc, char* argv[]){
                     asteroid = nullptr;
                 }
             }
-            std::cout << "Gestion memoire:asteroid " << asteroid << ", Missile: " << missile << std::endl;
+            //std::cout << "Gestion memoire:asteroid " << asteroid << ", Missile: " << missile << std::endl;
 
             //5 Class SpaceShip
-            double xS = fw->GetScreenWidth() / 4.0;
-            double yS = fw->GetScreenHeight() / 2.0;
-            double sizeS = 60.0;
-            double speedS = 5.0;
-            double angleS = 0.0;
-            bool warning = false;
-            fw->DrawShip(static_cast<int>(xS), static_cast<int>(yS), static_cast<float>(angleS), 0.0, warning);
+            if (spaceship) {
+                if (userInput == SDLK_UP) {
+                    spaceship->SpeedUp(accelerationFactor);
+                }
+                if (userInput == SDLK_DOWN) {
+                    spaceship->SpeedDown(decelerationFactor);
+                }
+                if (userInput == SDLK_LEFT) {
+                    spaceship->Rotate(-rotationAngle);
+                }
+                if (userInput == SDLK_RIGHT) {
+                    spaceship->Rotate(rotationAngle);
+
+                }
+                fw->DrawShip(static_cast<int>(spaceship->GetX()), static_cast<int>(spaceship->GetY()), static_cast<int>(spaceship->GetAngle()), 0.0, warning);
+            }
 
         }
         delete fw;

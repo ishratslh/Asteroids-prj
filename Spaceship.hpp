@@ -22,8 +22,8 @@ public:
 
     //////////
     // Getters
-    double GetXSpeed();
-    double GetYSpeed();
+    double GetXSpeed() const override;
+    double GetYSpeed() const override;
     double GetAngle();
 
     ///////////////////////
