@@ -27,15 +27,10 @@ public:
     double GetXSpeed() const override;
     double GetYSpeed()const override;
 
-    //////////
-    // Setters
-    //void SetXSpeed(double xSpeed);
-    //void SetYSpeed(double ySpeed);
-
     /////////////////////////
     // Déplacement de l'objet
     // déplace selon le vecteur de vitesse de l'objet
-    void Move();
+    //void Move();
 
     ///////////////////////////////////////
     // Déplacement de l'objet avec réentrée

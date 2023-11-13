@@ -20,22 +20,37 @@ double Spaceship::GetYSpeed() const{
 }
 
 void Spaceship::SpeedUp(double accelerationFactor){
-    double radian = angle * M_PI / 180;
-    double xSpeed = accelerationFactor * cos(radian);
-    double ySpeed = accelerationFactor * sin(radian);
-    SetXSpeed(GetXSpeed() + xSpeed);
-    SetYSpeed(GetYSpeed() + ySpeed);
+    double radian = this->angle * M_PI / 180;
+    SetXSpeed(GetXSpeed() + accelerationFactor * cos(radian));
+    SetYSpeed(GetYSpeed() + accelerationFactor * sin(radian));
 }
 
 void Spaceship::SpeedDown(double decelerationFactor) {
-    double radian = angle * M_PI / 180;
-    double xSpeed = decelerationFactor * cos(angle);
-    double ySpeed = decelerationFactor * sin(angle);
-    SetXSpeed(GetXSpeed() - xSpeed);
-    SetYSpeed(GetYSpeed() - ySpeed);
+    double radian = this->angle * M_PI / 180;
+    SetXSpeed(GetXSpeed() - decelerationFactor * cos(radian));
+    SetYSpeed(GetYSpeed() - decelerationFactor * sin(radian));
 }
 
 void Spaceship::Rotate(double rAngle) {
     angle += rAngle;
 }
+
+void Spaceship::Move(double screenWidth, double screenHeight) {
+    // mise à jour de la position
+    x += GetXSpeed();
+    y += GetYSpeed();
+
+    if (x < 0) {
+        x = screenWidth; // réapparaît à droite
+    } else if (x > screenWidth) {
+        x = 0; // réapparaît à gauche
+    }
+
+    if (y < 0) {
+        y = screenHeight; // réapparaît en bas de l'écran
+    } else if (y > screenHeight) {
+        y = 0; // réapparaît en haut de l'écran
+    }
+}
+
 

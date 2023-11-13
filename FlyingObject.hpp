@@ -29,6 +29,10 @@ public:
     void SetXSpeed(double xSpeed);
     void SetYSpeed(double ySpeed);
 
+    // déplace selon les vitesses de déplacement de l'objet
+    void Move();
+    //void Move(double screenWidth, double screenHeight);
+
     /////////////////////////////
     // Détermination de collision
     // calcul basé sur l'hypothèse que les objets sont sphériques

@@ -44,6 +44,7 @@ public:
     // * angle : l'angle de rotation, en degrés.
     void Rotate(double rAngle);
 
+    void Move(double screenWidth, double screenHeight) ;
 
 };
 

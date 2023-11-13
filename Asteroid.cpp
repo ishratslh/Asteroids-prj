@@ -15,15 +15,10 @@ double Asteroid::GetYSpeed() const{
     return ySpeed;
 }
 
-// Setters
-/*void Asteroid::SetXSpeed(double xSpeed) { this->xSpeed = xSpeed; }
-void Asteroid::SetYSpeed(double ySpeed) { this->ySpeed = ySpeed; }*/
-
-//move
-void Asteroid::Move() {
+/*void Asteroid::Move() {
     x += xSpeed;
     y += ySpeed;
-}
+}*/
 
 // move astéroide avec réentrée
 void Asteroid::Move(double screenWidth, double screenHeight) {

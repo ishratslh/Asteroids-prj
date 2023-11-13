@@ -18,13 +18,6 @@ double FlyingObject::GetY() {
 double FlyingObject::GetSize() {
     return this->size;
 }
-/*double FlyingObject::GetXSpeed() {
-    return this->xSpeed;
-}
-double FlyingObject::GetYSpeed() {
-    return this->ySpeed;
-}*/
-
 
 // Setters
 void FlyingObject::SetX(double x) {
@@ -36,6 +29,7 @@ void FlyingObject::SetY(double y) {
 void FlyingObject::SetSize(double size) {
     this->size = size;
 }
+
 void FlyingObject::SetXSpeed(double xSpeed) {
     this->xSpeed = xSpeed;
 }
@@ -43,6 +37,10 @@ void FlyingObject::SetYSpeed(double ySpeed) {
     this->ySpeed = ySpeed;
 }
 
+void FlyingObject::Move() {
+    x += xSpeed;
+    y += ySpeed;
+}
 
 /////////////////////////////
 // Détermination de collision

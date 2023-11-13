@@ -106,8 +106,11 @@ int main(int argc, char* argv[]){
 
             //5 Class SpaceShip
             if (spaceship) {
+                std::cout << "Init : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
                 if (userInput == SDLK_UP) {
                     spaceship->SpeedUp(accelerationFactor);
+                    std::cout << "Speed up : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
+
                 }
                 if (userInput == SDLK_DOWN) {
                     spaceship->SpeedDown(decelerationFactor);
@@ -117,8 +120,8 @@ int main(int argc, char* argv[]){
                 }
                 if (userInput == SDLK_RIGHT) {
                     spaceship->Rotate(rotationAngle);
-
                 }
+                spaceship->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
                 fw->DrawShip(static_cast<int>(spaceship->GetX()), static_cast<int>(spaceship->GetY()), static_cast<int>(spaceship->GetAngle()), 0.0, warning);
             }
 
