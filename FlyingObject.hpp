@@ -20,8 +20,8 @@ public:
     double GetX();
     double GetY();
     double GetSize();
-    virtual double GetXSpeed() const = 0;
-    virtual double GetYSpeed() const = 0;
+    double GetXSpeed() ;
+    double GetYSpeed() ;
 
     void SetX(double x);
     void SetY(double y);
@@ -31,7 +31,7 @@ public:
 
     // déplace selon les vitesses de déplacement de l'objet
     void Move();
-    //void Move(double screenWidth, double screenHeight);
+    void Move(double screenWidth, double screenHeight);
 
     /////////////////////////////
     // Détermination de collision

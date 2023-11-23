@@ -4,6 +4,7 @@
 
 #include "Spaceship.hpp"
 #include <cmath>
+#include <iostream>
 
 
 Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle)
@@ -12,23 +13,25 @@ Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpe
 double Spaceship::GetAngle(){
     return this->angle;
 }
-double Spaceship::GetXSpeed() const{
-    return xSpeed * cos(angle);
-}
-double Spaceship::GetYSpeed() const{
-    return ySpeed * sin(angle);
-}
 
 void Spaceship::SpeedUp(double accelerationFactor){
-    double radian = this->angle * M_PI / 180;
-    SetXSpeed(GetXSpeed() + accelerationFactor * cos(radian));
-    SetYSpeed(GetYSpeed() + accelerationFactor * sin(radian));
+    double radian = (angle-90) * M_PI / 180;
+    double newXSpeed = GetXSpeed() + accelerationFactor * cos(radian);
+    double newYSpeed = GetYSpeed() + accelerationFactor * sin(radian);
+    //std::cout << "SpeedUp: newXSpeed = " << newXSpeed << ", newYSpeed = " << newYSpeed << std::endl;
+    SetXSpeed(newXSpeed);
+    SetYSpeed(newYSpeed);
 }
 
 void Spaceship::SpeedDown(double decelerationFactor) {
-    double radian = this->angle * M_PI / 180;
-    SetXSpeed(GetXSpeed() - decelerationFactor * cos(radian));
-    SetYSpeed(GetYSpeed() - decelerationFactor * sin(radian));
+    double radian = (angle-90) * M_PI / 180;
+    double newXSpeed = GetXSpeed() - decelerationFactor * cos(radian);
+    double newYSpeed = GetYSpeed() - decelerationFactor * sin(radian);
+
+    //std::cout << "SpeedDown: newXSpeed = " << newXSpeed << ", newYSpeed = " << newYSpeed << std::endl;
+
+    SetXSpeed(newXSpeed);
+    SetYSpeed(newYSpeed);
 }
 
 void Spaceship::Rotate(double rAngle) {
@@ -39,6 +42,8 @@ void Spaceship::Move(double screenWidth, double screenHeight) {
     // mise à jour de la position
     x += GetXSpeed();
     y += GetYSpeed();
+    //std::cout << "Move: x = " << x << ", y = " << y << std::endl;
+
 
     if (x < 0) {
         x = screenWidth; // réapparaît à droite
@@ -52,5 +57,6 @@ void Spaceship::Move(double screenWidth, double screenHeight) {
         y = 0; // réapparaît en haut de l'écran
     }
 }
+
 
 

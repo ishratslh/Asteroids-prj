@@ -12,14 +12,14 @@
 //int WinMain(int argc, char* argv[])
 int main(int argc, char* argv[]){
         std::cout << "Hello asteroids!" << std::endl;
-        Framework * fw = new Framework(20, 60, 60);
+        Framework * fw = new Framework(60, 60, 60);
 
         //Paramètres d'un asteroide
         double xA = fw->GetScreenWidth() / 2.0;
         double yA = fw->GetScreenHeight() / 2.0;
         double sizeA = 70.0;
-        double xSpeedA = 5.0;
-        double ySpeedA = 5.0;
+        double xSpeedA = 0.0;
+        double ySpeedA = 0.0;
         bool destroyAsteroid = false;
 
         //Paramètres d'un missile
@@ -34,7 +34,8 @@ int main(int argc, char* argv[]){
         double xS = fw->GetScreenWidth() / 4.0;
         double yS = fw->GetScreenHeight() / 2.0;
         double sizeS = 60.0;
-        double speedS = 5.0;
+        double speedXS = 1.0;
+        double speedYS = 1.0;
         double angleS = 0.0;
 
         double accelerationFactor = 0.1;
@@ -42,7 +43,7 @@ int main(int argc, char* argv[]){
         double rotationAngle = 10;
         bool warning = false;
 
-        Spaceship *spaceship = new Spaceship(xS,yS,sizeS,speedS,speedS, angleS);
+        Spaceship *spaceship = new Spaceship(xS,yS,sizeS,speedXS,speedYS, angleS);
         Asteroid *asteroid = new Asteroid(xA, yA,sizeA,xSpeedA,ySpeedA);
         Missile *missile = new Missile(xM,yM,sizeM,speedM,angleM);
 
@@ -51,7 +52,6 @@ int main(int argc, char* argv[]){
             if (userInput == SDLK_ESCAPE) {
                 break;
             }
-            fw->Update(); //effacer écran
 
             //1 Prendre en main le Framework d’affichage : missile au centre de l'écran
             /*int screenWidth = fw->GetScreenWidth();
@@ -106,14 +106,14 @@ int main(int argc, char* argv[]){
 
             //5 Class SpaceShip
             if (spaceship) {
-                std::cout << "Init : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
+                //std::cout << "Init : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
                 if (userInput == SDLK_UP) {
                     spaceship->SpeedUp(accelerationFactor);
-                    std::cout << "Speed up : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
-
+                    //std::cout << "acc : Speed up : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
                 }
                 if (userInput == SDLK_DOWN) {
                     spaceship->SpeedDown(decelerationFactor);
+                    //std::cout << "desc : Speed up : xspeed =" << spaceship->GetXSpeed()<< " yspeed =" << spaceship->GetYSpeed() << std::endl;
                 }
                 if (userInput == SDLK_LEFT) {
                     spaceship->Rotate(-rotationAngle);
@@ -124,6 +124,7 @@ int main(int argc, char* argv[]){
                 spaceship->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
                 fw->DrawShip(static_cast<int>(spaceship->GetX()), static_cast<int>(spaceship->GetY()), static_cast<int>(spaceship->GetAngle()), 0.0, warning);
             }
+            fw->Update(); //effacer écran
 
         }
         delete fw;

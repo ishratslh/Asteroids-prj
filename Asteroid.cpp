@@ -8,10 +8,10 @@ Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed
         : FlyingObject(x, y, size, xSpeed, ySpeed) {}
 
 
-double Asteroid::GetXSpeed() const{
+double Asteroid::GetXSpeed() {
     return xSpeed;
 }
-double Asteroid::GetYSpeed() const{
+double Asteroid::GetYSpeed() {
     return ySpeed;
 }
 
@@ -23,6 +23,7 @@ double Asteroid::GetYSpeed() const{
 // move astéroide avec réentrée
 void Asteroid::Move(double screenWidth, double screenHeight) {
     // mise à jour de la position
+
     x += xSpeed;
     y += ySpeed;
 

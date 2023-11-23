@@ -24,8 +24,8 @@ public:
 
     //////////
     // Getters
-    double GetXSpeed() const override;
-    double GetYSpeed()const override;
+    double GetXSpeed() ;
+    double GetYSpeed();
 
     /////////////////////////
     // Déplacement de l'objet

@@ -19,6 +19,13 @@ double FlyingObject::GetSize() {
     return this->size;
 }
 
+double FlyingObject::GetXSpeed() {
+    return xSpeed;
+}
+double FlyingObject::GetYSpeed() {
+    return ySpeed;
+}
+
 // Setters
 void FlyingObject::SetX(double x) {
     this->x = x;
@@ -38,8 +45,26 @@ void FlyingObject::SetYSpeed(double ySpeed) {
 }
 
 void FlyingObject::Move() {
-    x += xSpeed;
-    y += ySpeed;
+    this->x += this->xSpeed;
+    this->y += this->ySpeed;
+}
+
+void FlyingObject::Move(double screenWidth, double screenHeight) {
+    // mise à jour de la position
+    this->x += this->xSpeed;
+    this->y += this->ySpeed;
+
+    if (x < 0) {
+        x = screenWidth; // réapparaît à droite
+    } else if (x > screenWidth) {
+        x = 0; // réapparaît à gauche
+    }
+
+    if (y < 0) {
+        y = screenHeight; // réapparaît en bas de l'écran
+    } else if (y > screenHeight) {
+        y = 0; // réapparaît en haut de l'écran
+    }
 }
 
 /////////////////////////////

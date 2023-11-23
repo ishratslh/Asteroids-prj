@@ -27,9 +27,9 @@ bool Missile::Move(double screenWidth, double screenHeight){
     }
 }
 
-double Missile::GetXSpeed() const{
+double Missile::GetXSpeed() {
     return xSpeed * cos(angle);
 }
-double Missile::GetYSpeed() const{
+double Missile::GetYSpeed() {
     return ySpeed * sin(angle);
 }
