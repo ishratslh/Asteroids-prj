@@ -58,5 +58,9 @@ void Spaceship::Move(double screenWidth, double screenHeight) {
     }
 }
 
+std::string Spaceship::GetTypeName() const {
+    return "Spaceship";
+}
+
 
 

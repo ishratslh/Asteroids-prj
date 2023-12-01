@@ -22,7 +22,6 @@ public:
 
     //////////
     // Getters
-
     double GetAngle();
 
     ///////////////////////
@@ -44,6 +43,8 @@ public:
     void Rotate(double rAngle);
 
     void Move(double screenWidth, double screenHeight) ;
+
+    std::string GetTypeName() const override;
 
 };
 

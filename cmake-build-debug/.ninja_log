@@ -15,3 +15,14 @@
 3763	5097	7224540073363882	asteroids-prj.exe	92cdde3e99b5d033
 36	2672	7224544593738891	CMakeFiles/asteroids-prj.dir/Controller.cpp.obj	21d27626c7164eb6
 2673	2945	7224544596449974	asteroids-prj.exe	92cdde3e99b5d033
+61	1584	7231365272675582	CMakeFiles/asteroids-prj.dir/Asteroid.cpp.obj	38330b4cb0935e6e
+163	1722	7231365274081646	CMakeFiles/asteroids-prj.dir/Missile.cpp.obj	ddaa83f19d4c982e
+85	1906	7231365275993726	CMakeFiles/asteroids-prj.dir/FlyingObject.cpp.obj	bab9d9bfdc200a30
+122	2108	7231365278041263	CMakeFiles/asteroids-prj.dir/Spaceship.cpp.obj	d5869602b508dc9
+23	3475	7231365291750627	CMakeFiles/asteroids-prj.dir/main.cpp.obj	d492dfe84e936631
+1586	4243	7231365299439431	CMakeFiles/asteroids-prj.dir/Model.cpp.obj	6714d2e230f42a05
+1722	4255	7231365299549547	CMakeFiles/asteroids-prj.dir/View.cpp.obj	e1e0f0d07b3487fc
+40	2597	7231367570085611	CMakeFiles/asteroids-prj.dir/Controller.cpp.obj	21d27626c7164eb6
+18	2628	7231367570461507	CMakeFiles/asteroids-prj.dir/View.cpp.obj	e1e0f0d07b3487fc
+7	2366	7231368032111506	CMakeFiles/asteroids-prj.dir/Model.cpp.obj	6714d2e230f42a05
+2367	3270	7231368041017846	asteroids-prj.exe	92cdde3e99b5d033

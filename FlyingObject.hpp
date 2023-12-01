@@ -5,6 +5,7 @@
 #ifndef PROJET_FLYINGOBJECT_HPP
 #define PROJET_FLYINGOBJECT_HPP
 
+#include <string>
 
 class FlyingObject {
 public:
@@ -41,6 +42,7 @@ public:
     // -------
     // Renvoie : true si les deux objets se touchent, false sinon
     static bool Collide(FlyingObject &o1, FlyingObject &o2);
+    virtual std::string GetTypeName() const = 0;
 
 };
 

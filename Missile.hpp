@@ -21,6 +21,7 @@ public :
     // * angle : orientation
     Missile(double x, double y, double size, double speed, double angle);
 
+    ~Missile();
     ///////////////////////////////////////////////////////
     // déplace selon les vitesses de déplacement de l'objet
     // Renvoie : un booléen indiquant s'il y a sortie des limites de l'écran
@@ -30,6 +31,7 @@ public :
     // Getters
     double GetXSpeed();
     double GetYSpeed();
+    std::string GetTypeName() const override;
 };
 
 

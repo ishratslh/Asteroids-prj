@@ -40,3 +40,7 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
     }
 }
 
+std::string Asteroid::GetTypeName() const {
+    return "Asteroid";
+}
+

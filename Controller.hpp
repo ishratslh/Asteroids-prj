@@ -11,13 +11,18 @@
 #include "framework.hpp"
 
 class Controller {
-public:
+public: //private:
     Model* model;
     View* view;
     Framework* framework;
 
 public:
-    Controller(double fps, double shipSize, double missileSize);
+    Controller(double fps, double shipSize, double missileSize, double screenWidth, double screenHeight);
+    ~Controller() {
+        delete model;
+        delete view;
+        delete framework;
+    }
     void LaunchGame();
 
 };

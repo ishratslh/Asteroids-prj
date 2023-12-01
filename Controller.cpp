@@ -4,8 +4,8 @@
 
 #include "Controller.hpp"
 
-Controller::Controller(double fps, double shipSize, double missileSize):
-        model(new Model()), view(new View()), framework(new Framework(fps, shipSize, missileSize)) {}
+Controller::Controller(double fps, double shipSize, double missileSize, double screenWidth, double screenHeight):
+        model(new Model(screenWidth, screenHeight)), view(new View()), framework(new Framework(fps, shipSize, missileSize)) {}
 
 void Controller::LaunchGame() {
     while (true) {
@@ -15,9 +15,9 @@ void Controller::LaunchGame() {
         }
         framework->Update(); // Effacer l'écran
 
-        /*model->HandleUserInput(userInput);
+        model->HandleUserInput(userInput);
         model->Update();
 
-        view->Refresh(model->GetFlyingObjects());*/
+        framework->Update();
     }
 }

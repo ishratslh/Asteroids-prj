@@ -8,11 +8,14 @@
 Missile::Missile(double x, double y, double size, double speed, double angle)
 : FlyingObject(x, y, size, speed, speed), angle(angle) {}
 
+Missile::~Missile() {
+    delete this;
+}
+
 ///////////////////////////////////////////////////////
 // déplace selon les vitesses de déplacement de l'objet
 // -------
 // Renvoie : un booléen indiquant s'il y a sortie des limites de l'écran
-
 
 bool Missile::Move(double screenWidth, double screenHeight){
     // déplace selon les vitesses de déplacement de l'objet
@@ -32,4 +35,8 @@ double Missile::GetXSpeed() {
 }
 double Missile::GetYSpeed() {
     return ySpeed * sin(angle);
+}
+
+std::string Missile::GetTypeName() const {
+    return "Missile";
 }

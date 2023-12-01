@@ -40,6 +40,8 @@ public:
     // -------
     // * screenWidth, screenHeight : taille de l'écran
     void Move(double screenWidth, double screenHeight);
+
+    std::string GetTypeName() const override;
 };
 
 #endif //PROJET_ASTEROID_HPP
