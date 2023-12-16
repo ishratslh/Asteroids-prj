@@ -4,35 +4,42 @@
 
 #ifndef ASTEROIDS_PRJ_MODEL_HPP
 #define ASTEROIDS_PRJ_MODEL_HPP
-#include "Framework.hpp"
+
+#include "FlyingObject.hpp"
 #include "Spaceship.hpp"
 #include "Asteroid.hpp"
 #include "Missile.hpp"
-#include "FlyingObject.hpp"
 #include <vector>
-#include <string>
-#include "include/SDL2/SDL.h"
-#include <iostream>
 
 class Model {
-private:
-    Spaceship* spaceship;
-    Asteroid* asteroid;
-    Missile* missile;
-    Framework *framework;
-    double screenWidth;
-    double screenHeight;
 
-public:
-    Model(Framework* fw, int screenWidth, int screenHeight);
+
+public :
+
     Model(int screenWidth, int screenHeight);
-    ~Model();
-
-    void HandleUserInput(int userInput);
-    static void DestroyFlyingObject(FlyingObject* flyingObject);
-    bool CheckCollision(FlyingObject* flyingObject1, FlyingObject* flyingObject2);
     void Update();
-    std::vector<FlyingObject*> GetFlyingObjects();
+    //------------Actions :
+    void ChooseAction(int action);
+    void SpeedUp();
+    void SpeedDown();
+    void RotateRight();
+    void RotateLeft();
+    //----------Getters :
+    std::vector<FlyingObject *> GetFlyingObjects();
+    std::vector<FlyingObject *> GetFlyingObjectsInGame(std::vector<FlyingObject*>& allFlyingObjects);
+
+
+
+private :
+    //List of Flying Objects
+    std::vector<FlyingObject *> flyingObjects;
+
+    //Flying Objects
+    Spaceship* spaceship;
+    Asteroid* asteroidOne;
+    Asteroid* asteroidTwo;
+    Missile* missileTest;
+
 };
 
 #endif //ASTEROIDS_PRJ_MODEL_HPP

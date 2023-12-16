@@ -5,25 +5,25 @@
 #ifndef ASTEROIDS_PRJ_VIEW_HPP
 #define ASTEROIDS_PRJ_VIEW_HPP
 
-#include "Framework.hpp"
-#include "Spaceship.hpp"
-#include "Asteroid.hpp"
-#include "Missile.hpp"
-#include "FlyingObject.hpp"
 #include <vector>
-#include <string>
-#include "include/SDL2/SDL.h"
-#include <iostream>
+#include "FlyingObject.hpp"
+#include "Model.hpp"
+#include "framework.hpp"
 
-class View {
-    private:
-        Framework* framework;
+class View{
 
-    public:
-        View();
-        View(Framework* fw);
-        void RefreshDisplay(const std::vector<FlyingObject*>& flyingObjects);
+
+public:
+
+    //---------------------Constructor :
+    View(Framework* framework);
+
+    void Refresh(std::vector<FlyingObject *>, Framework* framework);
+
+
+private :
+
+
+
 };
-
-
 #endif //ASTEROIDS_PRJ_VIEW_HPP

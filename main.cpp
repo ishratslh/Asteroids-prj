@@ -5,13 +5,24 @@
 #include "FlyingObject.hpp"
 #include "Spaceship.hpp"
 
+#include "Controller.hpp"
+
+#include <vector>
+#include <memory>
+
+using namespace std;
+
+
 #include <string>
 #include "include/SDL2/SDL.h"
 
 
 //int WinMain(int argc, char* argv[])
 int main(int argc, char* argv[]){
-        std::cout << "Hello asteroids!" << std::endl;
+    std::cout << "Opening EFREI-Roids !" << std::endl;
+    Controller controller(20,60,10);
+    controller.LaunchGame();
+        /*std::cout << "Hello asteroids!" << std::endl;
         Framework * fw = new Framework(60, 60, 60);
 
         //Paramètres d'un asteroide
@@ -25,7 +36,7 @@ int main(int argc, char* argv[]){
         //Paramètres d'un missile
         double xM = fw->GetScreenWidth() / 4.0;
         double yM = fw->GetScreenHeight() / 2.0;
-        double sizeM = 60.0;
+        double sizeM =  10.0;
         double speedM = 5.0;
         double angleM = 0.0;
         bool destroyMissile = false;
@@ -59,7 +70,7 @@ int main(int argc, char* argv[]){
             fw->DrawMissile(screenWidth / 2, screenHeight / 2);*/
 
             //2 Créer une classe Asteroid
-            if (asteroid) {
+            /*if (asteroid) {
                 //asteroid->Move(fw->GetScreenWidth(), fw->GetScreenHeight());
                 fw->DrawAsteroid(static_cast<int>(asteroid->GetX()), static_cast<int>(asteroid->GetY()),static_cast<int>(asteroid->GetSize()));
             }
@@ -90,7 +101,7 @@ int main(int argc, char* argv[]){
             if (destroyMissile) {
                 if (missile) {
                     std::cout << "Deleting missile" << std::endl;
-                    delete missile;
+                    //delete missile;
                     missile = nullptr;
                 }
             }
@@ -98,7 +109,7 @@ int main(int argc, char* argv[]){
             if (destroyAsteroid) {
                 if (asteroid) {
                     std::cout << "Deleting asteroid" << std::endl;
-                    delete asteroid;
+                    //delete asteroid;
                     asteroid = nullptr;
                 }
             }
@@ -127,6 +138,6 @@ int main(int argc, char* argv[]){
             fw->Update(); //effacer écran
 
         }
-        delete fw;
+        delete fw;*/
         return 0;
 }

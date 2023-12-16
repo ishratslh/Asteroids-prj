@@ -2,22 +2,32 @@
 // Created by Ishra on 23/11/2023.
 //
 
+#include <iostream>
 #include "Controller.hpp"
 
-Controller::Controller(double fps, double shipSize, double missileSize, double screenWidth, double screenHeight):
-        model(new Model(screenWidth, screenHeight)), view(new View()), framework(new Framework(fps, shipSize, missileSize)) {}
+using namespace std;
+
+//------------------Constructors :
+
+Controller::Controller(int fps, int shipSize, int missileSize){
+
+    this->view = new View(framework);
+    this->framework = new Framework(fps,shipSize,missileSize);
+    this->model = new Model(framework->GetScreenWidth(),framework->GetScreenHeight());
+
+}
+
 
 void Controller::LaunchGame() {
-    while (true) {
-        int userInput = framework->GetInput();
-        if (userInput == SDLK_ESCAPE) {
-            break;
-        }
-        framework->Update(); // Effacer l'écran
 
-        model->HandleUserInput(userInput);
+    framework->GetInput();
+
+    while(framework->GetInput() != SDLK_ESCAPE){
+        model->ChooseAction(framework->GetInput());
         model->Update();
-
-        framework->Update();
+        view->Refresh(model->GetFlyingObjects(),framework);
     }
+
+
+
 }

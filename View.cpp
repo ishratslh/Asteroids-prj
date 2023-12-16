@@ -2,38 +2,40 @@
 // Created by Ishra on 23/11/2023.
 //
 
+#include <iostream>
 #include "View.hpp"
+#include "Spaceship.hpp"
 
-View::View() {}
-View::View(Framework* fw) {
-    this->framework = fw;
+
+using namespace std;
+
+//------------------Constructors :
+
+View::View(Framework* framework) {
+
+
 }
 
-void View::RefreshDisplay(const std::vector<FlyingObject*>& flyingObjects) {
-    for (const auto& obj : flyingObjects) {
-        if (obj) {
-            std::string typeName = obj->GetTypeName();
+void View::Refresh(std::vector<FlyingObject *> flyingObjects,Framework* framework) {
 
-            if (typeName == "Spaceship") {
-                Spaceship* spaceship = dynamic_cast<Spaceship*>(obj);
-                if (spaceship) {
-                    // Utilise le framework pour dessiner le vaisseau
-                    framework->DrawShip(static_cast<int>(spaceship->GetX()), static_cast<int>(spaceship->GetY()), static_cast<float>(spaceship->GetAngle()), 0.0, false);
-                }
-            } else if (typeName == "Asteroid") {
-                Asteroid* asteroid = dynamic_cast<Asteroid*>(obj);
-                if (asteroid) {
-                    // Utilise le framework pour dessiner l'astéroïde
-                    framework->DrawAsteroid(static_cast<int>(asteroid->GetX()), static_cast<int>(asteroid->GetY()), static_cast<int>(asteroid->GetSize()));
-                }
-            } else if (typeName == "Missile") {
-                Missile* missile = dynamic_cast<Missile*>(obj);
-                if (missile) {
-                    // Utilise le framework pour dessiner le missile
-                    framework->DrawMissile(static_cast<int>(missile->GetX()), static_cast<int>(missile->GetY()));
-                }
-            }
+    //----------------Test the list of FlyingObjects:
+    for (FlyingObject* object : flyingObjects){
+        //For an Asteroid :
+        if(object->GetTypeName() == "Asteroid"){
+            framework->DrawAsteroid(object->GetX(),object->GetY(),object->GetSize());
+            std::cout << "Recognized Asteroid" << std::endl;
+            std::cout << flyingObjects.size() << std::endl;
         }
+            //For a Missile :
+        else if(object->GetTypeName() == "Missile"){
+            framework->DrawMissile(object->GetX(),object->GetY());
+        }
+        //For a Spaceship ??(how to get angle warning and shield if its not explicit in flyingobject)
+        /*else if(flyingObjects[i]->GetTypeName() == "Spaceship"){
+            framework->DrawShip(flyingObjects[i]->GetX(),flyingObjects[i]->GetY(),flyingObjects[i]->GetSize(),flyingObjects[i]->GetAngle(),f);
+        }*/
+
     }
+    framework->Update();
 
 }
