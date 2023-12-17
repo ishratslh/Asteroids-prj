@@ -8,8 +8,10 @@
 #include "FlyingObject.hpp"
 
 class Spaceship : public FlyingObject{
-public:
+private:
     double angle;
+    bool warning;
+    float shieldLevel;
 
 public:
     ///////////////
@@ -20,9 +22,13 @@ public:
     // * angle d'orientation
     Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle);
 
+    ~Spaceship() ;
+
     //////////
     // Getters
     double GetAngle();
+    double GetWarning();
+    double GetShieldLevel();
 
     ///////////////////////
     // Accélère le vaisseau

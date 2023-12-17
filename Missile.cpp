@@ -17,7 +17,7 @@ Missile::~Missile() {
 // -------
 // Renvoie : un booléen indiquant s'il y a sortie des limites de l'écran
 
-bool Missile::Move(double screenWidth, double screenHeight){
+bool Missile::Move2(double screenWidth, double screenHeight){
     // déplace selon les vitesses de déplacement de l'objet
     x += xSpeed * cos(angle);
     y += ySpeed * sin(angle);
@@ -39,4 +39,26 @@ double Missile::GetYSpeed() {
 
 std::string Missile::GetTypeName() const {
     return "Missile";
+}
+
+void Missile::Move(double screenWidth, double screenHeight) {
+    if (FlyingObject::GetX() + xSpeed >= screenWidth || FlyingObject::GetX() + xSpeed <= 0 ||
+        FlyingObject::GetY() + ySpeed >= screenHeight || FlyingObject::GetY() + ySpeed <= 0) {
+
+    }
+    else {
+        FlyingObject::SetX(FlyingObject::GetX() + xSpeed);
+        FlyingObject::SetY(FlyingObject::GetY() + ySpeed);
+    }
+}
+
+bool Missile::NotOnScreen(double screenWidth, double screenHeight) {
+    if (FlyingObject::GetX() + xSpeed >= screenWidth || FlyingObject::GetX() + xSpeed <= 0 ||
+        FlyingObject::GetY() + ySpeed >= screenHeight || FlyingObject::GetY() + ySpeed <= 0) {
+        return true;
+
+    }
+    else {
+        return false;
+    }
 }

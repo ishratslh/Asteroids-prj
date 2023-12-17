@@ -8,10 +8,21 @@
 
 
 Spaceship::Spaceship(double x, double y, double size, double xSpeed, double ySpeed, double angle)
-        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle) {}
+        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle) {
+    this -> warning = false;
+    this -> shieldLevel = 1.0;
+
+}
 
 double Spaceship::GetAngle(){
     return this->angle;
+}
+double Spaceship::GetWarning() {
+    return this->warning;
+}
+
+double Spaceship::GetShieldLevel() {
+    return this->shieldLevel;
 }
 
 void Spaceship::SpeedUp(double accelerationFactor){
@@ -61,6 +72,8 @@ void Spaceship::Move(double screenWidth, double screenHeight) {
 std::string Spaceship::GetTypeName() const {
     return "Spaceship";
 }
+
+Spaceship::~Spaceship() = default;
 
 
 

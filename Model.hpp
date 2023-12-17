@@ -9,6 +9,7 @@
 #include "Spaceship.hpp"
 #include "Asteroid.hpp"
 #include "Missile.hpp"
+#include "Framework.hpp"
 #include <vector>
 
 class Model {
@@ -17,7 +18,7 @@ class Model {
 public :
 
     Model(int screenWidth, int screenHeight);
-    void Update();
+    void Update(Framework* framework);
     //------------Actions :
     void ChooseAction(int action);
     void SpeedUp();
@@ -26,7 +27,7 @@ public :
     void RotateLeft();
     //----------Getters :
     std::vector<FlyingObject *> GetFlyingObjects();
-    std::vector<FlyingObject *> GetFlyingObjectsInGame(std::vector<FlyingObject*>& allFlyingObjects);
+    std::vector<FlyingObject *> GetFlyingObjectsInGame(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework);
 
 
 

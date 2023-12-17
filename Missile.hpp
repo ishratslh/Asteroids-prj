@@ -25,7 +25,11 @@ public :
     ///////////////////////////////////////////////////////
     // déplace selon les vitesses de déplacement de l'objet
     // Renvoie : un booléen indiquant s'il y a sortie des limites de l'écran
-    bool Move(double screenWidth, double screenHeight);
+    bool Move2(double screenWidth, double screenHeight);
+
+    void Move(double screenWidth, double screenHeight);
+
+    bool NotOnScreen(double screenWidth, double screenHeight);
 
     //////////
     // Getters
