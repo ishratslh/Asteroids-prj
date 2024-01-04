@@ -8,7 +8,7 @@
 #include <string>
 
 class FlyingObject {
-public:
+protected:
     double x;
     double y;
     double size;
@@ -43,6 +43,8 @@ public:
     // Renvoie : true si les deux objets se touchent, false sinon
     static bool Collide(FlyingObject &o1, FlyingObject &o2);
     static bool Collide(FlyingObject *o1,FlyingObject *o2);
+
+    double DegToRad(double angle);
 
     virtual std::string GetTypeName() const = 0;
 

@@ -8,9 +8,8 @@
 #include "FlyingObject.hpp"
 
 class Asteroid : public FlyingObject{
-public:
-    //double xSpeed;   // Vitesse en x
-    //double ySpeed;   // Vitesse en y
+private:
+    double angle;
 
 public:
     ///////////////
@@ -20,12 +19,13 @@ public:
     // * size : diamètre de l'objet
     // * xSpeed, ySpeed : vecteur de vitesse de l'objet
 
-    Asteroid(double x, double y, double size, double xSpeed, double ySpeed);
+    Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle);
 
     //////////
     // Getters
     double GetXSpeed() ;
     double GetYSpeed();
+    double GetAngle();
 
     /////////////////////////
     // Déplacement de l'objet

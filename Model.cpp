@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <random>
 #include <SDL_keycode.h>
 #include "Model.hpp"
 #include "Spaceship.hpp"
@@ -26,19 +27,17 @@ Model::Model(int screenWidth, int screenHeight) {
     //-------------------------------
 
     //-----------------Create Asteroid :
-    this->asteroidOne= new Asteroid(150, 500,100, 10, 3);
-    this->asteroidTwo = new Asteroid(1600,screenHeight, 100, -5, -2);
+    this->nbAsteroids = 5;
+    for(int i = 0; i <nbAsteroids; i++){
+        InitializeAsteroids(screenWidth,screenHeight);
+    }
     //----------------------------------
-
-    //----------------Create Missile :
-    this->missileTest = new Missile(screenWidth/2, screenHeight/2,10, 10, 0);
-    //-------------------------------
 
     //Adding them to the flyingObjects list
     flyingObjects.push_back(spaceship);
-    flyingObjects.push_back(asteroidOne);
-    flyingObjects.push_back(asteroidTwo);
-    flyingObjects.push_back(missileTest);
+
+    this->missileNotOnScreen=false;
+
 
 
 }
@@ -46,11 +45,7 @@ Model::Model(int screenWidth, int screenHeight) {
 
 
 
-
-
-//-----------------------------------------------------------------Update :
-
-void Model::Update(Framework* framework) {
+int Model::Update(Framework* framework) {
 
     //Update the list of Objects :
     Model::GetFlyingObjectsInGame(flyingObjects, framework);
@@ -60,6 +55,9 @@ void Model::Update(Framework* framework) {
             if (object->GetTypeName()=="Missile"){
                 Missile* missile = dynamic_cast<Missile*>(object); // Cast to Missile
                 missile->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
+                if (missile->NotOnScreen(framework->GetScreenWidth(), framework->GetScreenHeight())){
+                    this->missileNotOnScreen= true;
+                }
             }
             else if(object->GetTypeName()=="Asteroid"){
                 Asteroid* asteroid = dynamic_cast<Asteroid*>(object); // Cast to Asteroid
@@ -73,31 +71,56 @@ void Model::Update(Framework* framework) {
 
     }
 
-    std::vector<FlyingObject*> objectsToRemove;
+
     // Test collisions between all missiles and all asteroids
     for (int i = 0; i < flyingObjects.size(); ++i) {
         FlyingObject* object = flyingObjects[i];
-        if (object != nullptr && object->GetTypeName() == "Missile") {
+        if (object != nullptr && object->GetTypeName() == "Asteroid") {
             for (int j = 0; j < flyingObjects.size(); ++j) {
                 FlyingObject* otherObject = flyingObjects[j];
-                if (otherObject != nullptr && otherObject->GetTypeName() == "Asteroid") {
-                    bool collision = FlyingObject::Collide(object, otherObject);
-                    if (collision) {
-                        // Remove otherObject from the vector
+                if (otherObject != nullptr && otherObject->GetTypeName() == "Missile") {
+                    bool collisionWithMissile = FlyingObject::Collide(object, otherObject);
+                    if (collisionWithMissile) {
+                        // Remove Asteroid from the vector
                         flyingObjects.erase(flyingObjects.begin() + j);
                         delete otherObject;
+                        nbAsteroids--;
+                        // Delete the missile object
+                        flyingObjects.erase(flyingObjects.begin() + i);
+                        delete object;
+                    }
+                }
+                else if (otherObject != nullptr && otherObject->GetTypeName() == "Spaceship") {
+                    bool collisionWithSpaceship = FlyingObject::Collide(object, otherObject);
+                    if (collisionWithSpaceship) {
+                        //Reduce shield of spaceship
+                        if (!spaceship->GetInvincible()) {
+                            // Check if shield is zero and handle destruction if needed
+                            if(spaceship->GetShieldLevel() <= 0){
+                                //Exit Game
+                                return -1;
+                            }
+                            else {
+                                // Reduce the shield of the spaceship
+                                spaceship->SetShieldLevel(spaceship->GetShieldLevel()-0.25);
+                                spaceship->SetInvincibleFor(3.0);
+                            }
+                        }
+                        else {
+                            // Spaceship Invincible
+                        }
                     }
                 }
             }
         }
     }
+    return 0;
+
+    //Test if there are still Asteroids in the Level
+
 
 }
 //--------------------------------------------------------------------------------
-
-
-
-
 
 
 //-----------------Actions :
@@ -114,6 +137,9 @@ void Model::ChooseAction(int action) {
             break;
         case SDLK_LEFT:
             Model::RotateLeft();
+            break;
+        case SDLK_SPACE:
+            Model::ShootMissile();
             break;
         case SDLK_ESCAPE:
             SDL_Quit();
@@ -141,6 +167,23 @@ void Model::RotateLeft() {
     spaceship->Rotate(-20);
 }
 
+void Model::ShootMissile() {
+    bool noMissilesOnScreen = true;
+    for (const FlyingObject* object : flyingObjects) {
+        if (object != nullptr && object->GetTypeName() == "Missile") {
+            noMissilesOnScreen = false;
+            break;
+        }
+    }
+
+    if (noMissilesOnScreen) {
+        this->missile = new Missile(spaceship->GetX(), spaceship->GetY(), 10, 30, spaceship->GetAngle());
+        flyingObjects.push_back(missile);
+        std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
+        std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
+    }
+}
+
 //------------------------------------------
 
 //---------------------Getters:
@@ -162,15 +205,66 @@ std::vector<FlyingObject*> Model::GetFlyingObjectsInGame(std::vector<FlyingObjec
 
             // Check if the missile is not on the screen
             if (missile->NotOnScreen(framework->GetScreenWidth(), framework->GetScreenHeight())) {
+                it = flyingObjects.erase(it); // Remove the missile from flyingObjects
                 //delete missile;
                 missile = nullptr;
-                it = flyingObjects.erase(it); // Remove the missile from flyingObjects
                 continue;
             }
         }
         ++it;
-
     }
 
     return flyingObjects;
+}
+
+void Model::InitializeAsteroids(double screenWidth, double screenHeight) {
+    //---Espace de creation :
+    std::uniform_int_distribution<int> spaceDistribution(0, 7);
+    std::random_device generator;
+    int spaceToUse = spaceDistribution(generator);
+    std::uniform_real_distribution<double> xDistribution(0.0, screenWidth);
+    std::uniform_real_distribution<double> yDistribution(0.0, screenHeight);
+
+    //---Assignement des espaces :
+    if(spaceToUse == 0){
+        std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
+    }
+    else if(spaceToUse == 1){
+        std::uniform_real_distribution<double> xDistribution(screenWidth/3,2*screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
+    }
+    else if(spaceToUse == 2){
+        std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
+    }
+    else if(spaceToUse == 3){
+        std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(screenHeight/3,2*screenHeight/3);
+    }
+    else if(spaceToUse == 4){
+        std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(screenHeight/3,2*screenHeight/3);
+    }
+    else if(spaceToUse == 5){
+        std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
+    }
+    else if(spaceToUse == 6){
+        std::uniform_real_distribution<double> xDistribution(screenWidth/3,2*screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
+    }
+    else if(spaceToUse == 7){
+        std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
+        std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
+    }
+
+    double xToUse = xDistribution(generator);
+    double yToUse = yDistribution(generator);
+    std::uniform_int_distribution<int> angleValues(-180, 180);
+    int angle = angleValues(generator);
+
+    Asteroid* asteroidGenerated = new Asteroid(xToUse,yToUse,100, 10, 3, angle);
+    flyingObjects.push_back(asteroidGenerated);
+    std::cout<<"Generated an asteroid with x and y values " << xToUse << "," << yToUse << std::endl;
 }

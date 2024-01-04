@@ -95,6 +95,10 @@ bool FlyingObject::Collide(FlyingObject *o1,FlyingObject *o2) {
     }
 }
 
+double FlyingObject::DegToRad(double angle) {
+    return ((M_PI)*(180-angle))/180;
+}
+
 std::string FlyingObject::GetTypeName() const {
     return "FlyingObject";
 }

@@ -3,9 +3,10 @@
 //
 
 #include "Asteroid.hpp"
+#include <cmath>
 
-Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed)
-        : FlyingObject(x, y, size, xSpeed, ySpeed) {}
+Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle)
+        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle) {}
 
 
 double Asteroid::GetXSpeed() {
@@ -13,6 +14,10 @@ double Asteroid::GetXSpeed() {
 }
 double Asteroid::GetYSpeed() {
     return ySpeed;
+}
+
+double Asteroid::GetAngle() {
+    return angle;
 }
 
 /*void Asteroid::Move() {
@@ -24,12 +29,12 @@ double Asteroid::GetYSpeed() {
 void Asteroid::Move(double screenWidth, double screenHeight) {
     // mise à jour de la position
 
-    x += xSpeed;
-    y += ySpeed;
+    double xspeed = Asteroid::GetXSpeed() * sin(FlyingObject::DegToRad(Asteroid::GetAngle()));
+    double yspeed = Asteroid::GetYSpeed() * cos(FlyingObject::DegToRad(Asteroid::GetAngle()));
 
-    if (x < 0) {
+    if (this->x < 0) {
         x = screenWidth; // réapparaît à droite
-    } else if (x > screenWidth) {
+    } else if (this->x > screenWidth) {
         x = 0; // réapparaît à gauche
     }
 
@@ -37,6 +42,10 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
         y = screenHeight; // réapparaît en bas de l'écran
     } else if (y > screenHeight) {
         y = 0; // réapparaît en haut de l'écran
+    }
+    else{
+        x += xspeed;
+        y += yspeed;
     }
 }
 

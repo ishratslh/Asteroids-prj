@@ -22,7 +22,19 @@ void Controller::LaunchGame() {
 
     while(true){
         model->ChooseAction(framework->GetInput());
-        model->Update(framework);
+
+        int resultModelUpdate = model->Update(framework);
+        std::cout << "You lost !" << std::endl;
+        if (resultModelUpdate==-1){
+            exit(-1);
+        }
+        else if(resultModelUpdate==0){
+            std::cout << "You won !" << std::endl;
+        }
+        else {
+            continue;
+        }
+
         view->Refresh(model->GetFlyingObjects(),framework);
     }
 

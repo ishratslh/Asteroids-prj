@@ -6,12 +6,16 @@
 #define ASTEROIDS_PRJ_SPACESHIP_HPP
 
 #include "FlyingObject.hpp"
+#include <cmath>
+#include <chrono>
+#include <iostream>
 
 class Spaceship : public FlyingObject{
 private:
     double angle;
     bool warning;
-    float shieldLevel;
+    double shieldLevel;
+    std::chrono::time_point<std::chrono::system_clock> invincibilityEndTime;
 
 public:
     ///////////////
@@ -27,8 +31,15 @@ public:
     //////////
     // Getters
     double GetAngle();
-    double GetWarning();
+    bool GetWarning();
     double GetShieldLevel();
+
+    //Setters
+    void SetXSpeed(double xSpeed);
+    void SetYSpeed(double ySpeed);
+    void SetAngle(double angle);
+    void SetWarning(bool warning);
+    void SetShieldLevel(double shieldLevel);
 
     ///////////////////////
     // Accélère le vaisseau
@@ -49,6 +60,18 @@ public:
     void Rotate(double rAngle);
 
     void Move(double screenWidth, double screenHeight) ;
+
+    ////////////////////////////////////////
+    // Indique si le vaisseau est invincible
+    // -------
+    // Renvoie: true si le vaisseau est dans une période d'invincibilité, false sinon
+    bool GetInvincible();
+
+    ///////////////////////////////////////
+    // Place le vaisseau en mode invincible
+    // -------
+    // * duration : durée pendant laquelle le vaisseau est invincible
+    void SetInvincibleFor(double duration);
 
     std::string GetTypeName() const override;
 

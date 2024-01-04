@@ -36,19 +36,25 @@ double Missile::GetXSpeed() {
 double Missile::GetYSpeed() {
     return ySpeed * sin(angle);
 }
+double Missile::GetAngle() {
+    return this->angle;
+}
 
 std::string Missile::GetTypeName() const {
     return "Missile";
 }
 
 void Missile::Move(double screenWidth, double screenHeight) {
+    double xspeed = Missile::GetXSpeed() * sin(FlyingObject::DegToRad(Missile::GetAngle()));
+    double yspeed = Missile::GetYSpeed() * cos(FlyingObject::DegToRad(Missile::GetAngle()));
+
     if (FlyingObject::GetX() + xSpeed >= screenWidth || FlyingObject::GetX() + xSpeed <= 0 ||
         FlyingObject::GetY() + ySpeed >= screenHeight || FlyingObject::GetY() + ySpeed <= 0) {
 
     }
     else {
-        FlyingObject::SetX(FlyingObject::GetX() + xSpeed);
-        FlyingObject::SetY(FlyingObject::GetY() + ySpeed);
+        FlyingObject::SetX(FlyingObject::GetX() + xspeed);
+        FlyingObject::SetY(FlyingObject::GetY() + yspeed);
     }
 }
 
@@ -56,7 +62,6 @@ bool Missile::NotOnScreen(double screenWidth, double screenHeight) {
     if (FlyingObject::GetX() + xSpeed >= screenWidth || FlyingObject::GetX() + xSpeed <= 0 ||
         FlyingObject::GetY() + ySpeed >= screenHeight || FlyingObject::GetY() + ySpeed <= 0) {
         return true;
-
     }
     else {
         return false;

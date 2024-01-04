@@ -8,7 +8,7 @@
 #include "FlyingObject.hpp"
 
 class Missile : public FlyingObject{
-public :
+private :
     double angle;
 
 public :
@@ -26,7 +26,6 @@ public :
     // déplace selon les vitesses de déplacement de l'objet
     // Renvoie : un booléen indiquant s'il y a sortie des limites de l'écran
     bool Move2(double screenWidth, double screenHeight);
-
     void Move(double screenWidth, double screenHeight);
 
     bool NotOnScreen(double screenWidth, double screenHeight);
@@ -35,6 +34,7 @@ public :
     // Getters
     double GetXSpeed();
     double GetYSpeed();
+    double GetAngle();
     std::string GetTypeName() const override;
 };
 

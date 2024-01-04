@@ -22,7 +22,7 @@ void View::Refresh(std::vector<FlyingObject *> flyingObjects,Framework* framewor
             //For an Asteroid :
             if (object->GetTypeName() == "Asteroid") {
                 framework->DrawAsteroid(object->GetX(), object->GetY(), object->GetSize());
-                std::cout << flyingObjects.size() << std::endl;
+                //std::cout << flyingObjects.size() << std::endl;
             }
 
                 //For a Missile :
