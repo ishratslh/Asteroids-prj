@@ -115,24 +115,30 @@ void Model::ChooseAction(int action) {
         case SDLK_LEFT:
             Model::RotateLeft();
             break;
+        case SDLK_ESCAPE:
+            SDL_Quit();
+            exit(0);
+            break;
+
+
     }
 }
 
 
 void Model::SpeedUp() {
-    spaceship->SpeedUp(0.1);
+    spaceship->SpeedUp(10);
 }
 
 void Model::SpeedDown() {
-    spaceship->SpeedDown(0.1);
+    spaceship->SpeedDown(10);
 }
 
 void Model::RotateRight() {
-    spaceship->Rotate(10);
+    spaceship->Rotate(20);
 }
 
 void Model::RotateLeft() {
-    spaceship->Rotate(-10);
+    spaceship->Rotate(-20);
 }
 
 //------------------------------------------
