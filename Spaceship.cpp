@@ -68,7 +68,9 @@ void Spaceship::SpeedDown(double decelerationFactor) {
 
 //____________________________________Rotate____________________________________
 void Spaceship::Rotate(double rAngle) {
-    angle += rAngle;
+    double newAngle = (rAngle + Spaceship::GetAngle());
+    Spaceship::SetAngle(newAngle);
+    std::cout << "angle : " << angle << std::endl;
 }
 
 //____________________________________Move____________________________________

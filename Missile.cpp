@@ -5,17 +5,17 @@
 #include "Missile.hpp"
 
 Missile::Missile(double x, double y, double size, double speed, double angle)
-: FlyingObject(x, y, size, speed, speed), angle(angle) {}
+: FlyingObject(x, y, size, speed, speed), angle(angle), speed(speed) {}
 
 //____________________________________Getters and Setters____________________________________
-double Missile::GetXSpeed() { //récupère la vitesse de déplacement en x
-    return xSpeed * cos(angle);
-}
-double Missile::GetYSpeed() { //récupère la vitesse de déplacement en y
-    return ySpeed * sin(angle);
+double Missile::GetSpeed() { //récupère la vitesse de déplacement
+    return speed;
 }
 double Missile::GetAngle() { //récupère l'angle d'orientation
     return this->angle;
+}
+void Missile::SetAngle(double angle) { //change l'angle d'orientation
+    this->angle = angle;
 }
 
 std::string Missile::GetTypeName() const { //récupère le nom de l'objet

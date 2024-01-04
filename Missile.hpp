@@ -12,6 +12,7 @@
 class Missile : public FlyingObject{
 private :
     double angle; // angle d'orientation du missile
+    double speed; // vitesse de déplacement du missile
 
 public :
     ///////////////
@@ -27,10 +28,10 @@ public :
 
     //////////
     // Getters
-    double GetXSpeed();
-    double GetYSpeed();
+    double GetSpeed();
     double GetAngle();
     std::string GetTypeName() const override;
+    void SetAngle(double angle);
 
     ///////////////////////////////////////////////////////
     // déplace selon les vitesses de déplacement de l'objet

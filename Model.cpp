@@ -161,8 +161,8 @@ void Model::ShootMissile() {
     if (noMissile) {
         this->missile = new Missile(spaceship->GetX(), spaceship->GetY(), 10, 30, spaceship->GetAngle());
         flyingObjects.push_back(missile);
-        //std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
-        //std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
+        std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
+        std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
     }
 }
 
