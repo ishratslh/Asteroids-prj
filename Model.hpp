@@ -18,13 +18,12 @@
 class Model {
 
 private :
-    std::vector<FlyingObject *> flyingObjects; //Liste des objets volants du jeu
-    std::vector<Asteroid *> asteroids; //Liste des astéroïdes du jeu
-
     Spaceship* spaceship; //Vaisseau du joueur
     Missile* missile; //Missile
     int nbAsteroids; //Nombre d'astéroïdes à l'écran
     bool noMissile; //indicateur true s'il n'y a pas de missile à l'écran
+    std::vector<FlyingObject *> flyingObjects; //Liste des objets volants du jeu
+    std::vector<Asteroid *> asteroids; //Liste des astéroïdes du jeu
 
 public :
     ///////////////
@@ -34,8 +33,15 @@ public :
     Model(int screenWidth, int screenHeight);
 
     /////////////////
+    // Getters
+    std::vector<FlyingObject *> GetFlyingObjects();
+    std::vector<FlyingObject *> GetFlyingObjectsJeu(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework);
+
+    /////////////////
     // Update
     int Update(Framework* framework);
+    int UpdateFlyingObjects(Framework* framework);
+    int CheckCollisions();
 
     /////////////////
     // ActionInput
@@ -51,11 +57,6 @@ public :
     /////////////////
     // Initialisation des asteroïdes aléatoire
     void InitialiseAsteroid(double screenWidth, double screenHeight);
-
-    /////////////////
-    // Getters
-    std::vector<FlyingObject *> GetFlyingObjects();
-    std::vector<FlyingObject *> GetFlyingObjectsJeu(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework);
 };
 
 #endif //ASTEROIDS_PRJ_MODEL_HPP

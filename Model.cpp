@@ -31,78 +31,74 @@ Model::Model(int screenWidth, int screenHeight) {
 
 //____________________________________Update :_______________________________________
 int Model::Update(Framework* framework) {
-    //Mise à jour des flyingObjects:
-    Model::GetFlyingObjectsJeu(flyingObjects, framework);
+    UpdateFlyingObjects(framework);
+    CheckCollisions();
+    return 0;
+}
+int Model::UpdateFlyingObjects(Framework* framework) {
+    Model::GetFlyingObjectsJeu(flyingObjects, framework); //Mise à jour des flyingObjects
 
     //Dynamic cast des objets de flyingObjects pour l'appel de Move() (car différente selon l'objet)
-    for (FlyingObject* object : flyingObjects){
-        if (object != nullptr){
-            if (object->GetTypeName() == "Missile"){
-                Missile* missile = dynamic_cast<Missile*>(object);
+    for (FlyingObject* element : flyingObjects){
+        if (element != nullptr){
+            if(element->GetTypeName()=="Asteroid"){
+                Asteroid* asteroid = dynamic_cast<Asteroid*>(element);
+                asteroid->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
+            }
+            else if(element->GetTypeName()=="Spaceship"){
+                Spaceship* spaceship = dynamic_cast<Spaceship*>(element);
+                spaceship->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
+            }
+            else if (element->GetTypeName() == "Missile"){
+                Missile* missile = dynamic_cast<Missile*>(element);
                 missile->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
                 if (missile->NotOnScreen(framework->GetScreenWidth(), framework->GetScreenHeight())){
                     this->noMissile= true;
                 }
             }
-            else if(object->GetTypeName()=="Asteroid"){
-                Asteroid* asteroid = dynamic_cast<Asteroid*>(object);
-                asteroid->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
-            }
-            else if(object->GetTypeName()=="Spaceship"){
-                Spaceship* spaceship = dynamic_cast<Spaceship*>(object);
-                spaceship->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
-            }
         }
-
     }
+    return 0;
+}
 
-    // Vérification des collisions entre tous les objets
+int Model::CheckCollisions() {
+// Vérification des collisions entre tous les objets
     for (int i = 0; i < flyingObjects.size(); ++i) {
-        FlyingObject* object = flyingObjects[i];
-        if (object != nullptr && object->GetTypeName() == "Asteroid") {
+        FlyingObject *objet = flyingObjects[i];
+        if (objet->GetTypeName() =="Asteroid" && objet != nullptr) { //L'astéroide est le seul objet à pouvoir toucher les deux autres objets donc première boucle
             for (int j = 0; j < flyingObjects.size(); ++j) {
-                FlyingObject* otherObject = flyingObjects[j];
-                if (otherObject != nullptr && otherObject->GetTypeName() == "Missile") {
-                    bool collisionWithMissile = FlyingObject::Collide(object, otherObject);
-                    if (collisionWithMissile) {
-                        //Dynamic cast to access the specific functions
-                        Asteroid* asteroidToExplode = dynamic_cast<Asteroid*>(object); // Cast to Asteroid
-                        Missile* missile = dynamic_cast<Missile*>(otherObject); // Cast to Missile
-                        //To avoid nullptr in the list
-                        if(asteroidToExplode->GetNbExplosionsRestant()>=2){
-                            //Add the two other asteroids
-                            flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetXSpeed(),missile->GetAngle()+30));
-                            flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetYSpeed(),missile->GetAngle()-30));
-                        }
-
-                        // Remove Missile from the vector
-                        flyingObjects.erase(flyingObjects.begin() + j);
-                        delete otherObject;
-                        nbAsteroids--;
-                        // Delete the asteroid object
-                        flyingObjects.erase(flyingObjects.begin() + i);
-                        delete object;
-                    }
-                }
-                else if (otherObject != nullptr && otherObject->GetTypeName() == "Spaceship") {
-                    bool collisionWithSpaceship = FlyingObject::Collide(object, otherObject);
-                    if (collisionWithSpaceship) {
-                        //Reduce shield of spaceship
-                        if (!spaceship->GetInvincible()) {
-                            // Check if shield is zero and handle destruction if needed
-                            if(spaceship->GetShieldLevel() <= 0){
-                                //Exit Game
+                FlyingObject *autreObjet = flyingObjects[j];
+                if (autreObjet->GetTypeName()== "Spaceship" && autreObjet !=nullptr) {
+                    bool collisionS = FlyingObject::Collide(objet, autreObjet);
+                    if (collisionS) {
+                        if (!spaceship->GetInvincible() ){
+                            if (spaceship->GetShieldLevel() <= 0) { // si le bouclier du vaisseau est à 0, le vaisseau est détruit
+                                std::cout << "Game Over : le vaisseau a été détruit" << std::endl;
                                 return -1;
-                            }
-                            else {
-                                // Reduce the shield of the spaceship
-                                spaceship->SetShieldLevel(spaceship->GetShieldLevel()-0.25);
+                            } else { // sinon, affaiblir le bouclier du vaisseau
+                                spaceship->SetShieldLevel(spaceship->GetShieldLevel() - 0.25);
                                 spaceship->SetInvincibleFor(3.0);
                             }
-                        }
-                        else {
+                        } else {
                             // Spaceship Invincible
                         }
+                    }
+                } else if (autreObjet->GetTypeName() == "Missile" && autreObjet!= nullptr) {
+                    bool collisionM = FlyingObject::Collide(objet, autreObjet);
+                    if (collisionM) {
+                        Asteroid *newAsteroidExplose = dynamic_cast<Asteroid *>(objet); // Cast Asteroid
+                        Missile *missile = dynamic_cast<Missile *>(autreObjet); // Cast Missile
+                        if (newAsteroidExplose->GetNbExplosionsRestant() >= 2) { //Ajout des 2 new asteroids dans flyingObjects
+                            flyingObjects.push_back(newAsteroidExplose->Explosion(newAsteroidExplose->GetXSpeed(),missile->GetAngle()+30));
+                            flyingObjects.push_back(newAsteroidExplose->Explosion(newAsteroidExplose->GetYSpeed(),missile->GetAngle()-30));
+                        }
+
+                        // Suppression de l'asteroid et du missile
+                        flyingObjects.erase(flyingObjects.begin() + j);
+                        delete autreObjet; //asteroid
+                        nbAsteroids--;
+                        flyingObjects.erase(flyingObjects.begin() + i);
+                        delete objet; //missile
                     }
                 }
             }
@@ -153,7 +149,7 @@ void Model::RotateRight() {
 void Model::ShootMissile() {
     bool noMissile = true;
     for (const FlyingObject* object : flyingObjects) {
-        if (object != nullptr && object->GetTypeName() == "Missile") {
+        if (object->GetTypeName() == "Missile" && object != nullptr) {
             noMissile = false;
             break;
         }
@@ -161,37 +157,32 @@ void Model::ShootMissile() {
     if (noMissile) {
         this->missile = new Missile(spaceship->GetX(), spaceship->GetY(), 10, 30, spaceship->GetAngle());
         flyingObjects.push_back(missile);
-        std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
-        std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
+        //std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
+        //std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
     }
 }
 
 //____________________________________Getters:____________________________________
 std::vector<FlyingObject *> Model::GetFlyingObjects() {
-    std::vector<FlyingObject*> allFlyingObjects(flyingObjects.begin(), flyingObjects.end());
-    //Add the list of vectors of asteroids
-    //allFlyingObjects.insert(allFlyingObjects.end(), asteroids.begin(), asteroids.end());
-    return allFlyingObjects;
+    std::vector<FlyingObject*> totalFlyingObjects(flyingObjects.begin(), flyingObjects.end());
+    //totalFlyingObjects.insert(totalFlyingObjects.end(), asteroids.begin(), asteroids.end());
+    return totalFlyingObjects;
 }
 
-std::vector<FlyingObject*> Model::GetFlyingObjectsJeu(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework) {
-    // Check all the objects in the game
-    for (auto it = flyingObjects.begin(); it != flyingObjects.end();) {
-        FlyingObject* object = *it;
-
-        // Check if the object is a missile
+std::vector<FlyingObject*> Model::GetFlyingObjectsJeu(std::vector<FlyingObject*>& totalFlyingObjects, Framework* framework) {
+    for (auto element = flyingObjects.begin(); element!= flyingObjects.end();) {
+        FlyingObject* object = *element;
+        // retire le missile de la liste s'il n'est plus à l'écran
         if (object->GetTypeName() == "Missile") {
             Missile* missile = dynamic_cast<Missile*>(object);
-
-            // Check if the missile is not on the screen
-            if (missile->NotOnScreen(framework->GetScreenWidth(), framework->GetScreenHeight())) {
-                it = flyingObjects.erase(it); // Remove the missile from flyingObjects
+            if (missile->NotOnScreen(framework->GetScreenWidth(),framework->GetScreenHeight())) {
+                element = flyingObjects.erase(element);
                 //delete missile;
                 missile = nullptr;
                 continue;
             }
         }
-        ++it;
+        ++element;
     }
     return flyingObjects;
 }
@@ -203,7 +194,6 @@ void Model::InitialiseAsteroid(double screenWidth, double screenHeight) {
     int espace = spaceDistribution(generator);
     std::uniform_real_distribution<double> xDistribution(0.0, screenWidth);
     std::uniform_real_distribution<double> yDistribution(0.0, screenHeight);
-
     if(espace == 0){
         std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
@@ -244,5 +234,5 @@ void Model::InitialiseAsteroid(double screenWidth, double screenHeight) {
 
     Asteroid* newAsteroid = new Asteroid(x,y,100, 10, 3, angle, 2);
     asteroids.push_back(newAsteroid);//ajout de l'asteroid à la liste des asteroids
-    //flyingObjects.push_back(asteroidGenerated);
+    //flyingObjects.push_back(newAsteroid);
 }

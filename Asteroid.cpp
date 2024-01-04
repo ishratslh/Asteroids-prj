@@ -55,7 +55,7 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
         x = 0; // réapparaît à gauche
     }
 
-    if (y < 0) {
+    if (this->y < 0) {
         y = screenHeight; // réapparaît en bas de l'écran
     } else if (y > screenHeight) {
         y = 0; // réapparaît en haut de l'écran
@@ -67,7 +67,7 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
 }
 
 //____________________________________Explode____________________________________
-Asteroid *Asteroid::Explode(double speed, double angle) {
+Asteroid *Asteroid::Explosion(double speed, double angle) {
     if(this->nbExplosionsRestant>0){
         //si un missile touche un asteroide, celui-ci se divise en 2 et nbExplosionsLeft est décrémenté
         double newTaille = Asteroid::GetSize()/2; //Taille plus petite

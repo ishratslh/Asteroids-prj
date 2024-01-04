@@ -40,8 +40,8 @@ void Spaceship::SetWarning(bool warning) {
 void Spaceship::SetShieldLevel(double shieldLevel) {
     this->shieldLevel = shieldLevel;
 }
-void Spaceship::SetInvincibleFor(double duration) {
-    invincibilityEndTime = std::chrono::system_clock::now() + std::chrono::seconds(static_cast<long>(duration));
+void Spaceship::SetInvincibleFor(double temps) {
+    invincibilityEndTime = std::chrono::system_clock::now() + std::chrono::seconds(static_cast<long>(temps));
 }
 
 //____________________________________Speed Up/Down____________________________________
@@ -70,7 +70,7 @@ void Spaceship::SpeedDown(double decelerationFactor) {
 void Spaceship::Rotate(double rAngle) {
     double newAngle = (rAngle + Spaceship::GetAngle());
     Spaceship::SetAngle(newAngle);
-    std::cout << "angle : " << angle << std::endl;
+    //std::cout << "angle : " << angle << std::endl;
 }
 
 //____________________________________Move____________________________________

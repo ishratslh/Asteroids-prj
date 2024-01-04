@@ -54,7 +54,7 @@ class Asteroid : public FlyingObject{
         // Explosion de l'astéroïde
         // -------
         // si un missile touche un asteroide, celui-ci se divise en 2 et nbExplosionsRestant est décrémenté
-        Asteroid* Explode(double speed, double angle);
+        Asteroid* Explosion(double speed, double angle);
 };
 
 #endif //PROJET_ASTEROID_HPP

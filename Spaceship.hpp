@@ -44,7 +44,7 @@ class Spaceship : public FlyingObject{
         void SetAngle(double angle);
         void SetWarning(bool warning);
         void SetShieldLevel(double shieldLevel);
-        void SetInvincibleFor(double duration); // Place le vaisseau en mode invincible (duration : durée pendant laquelle le vaisseau est invincible)
+        void SetInvincibleFor(double temps); // Place le vaisseau en mode invincible (temps : durée pendant laquelle le vaisseau est invincible)
 
         ///////////////////////
         // Accélère le vaisseau
