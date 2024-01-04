@@ -1,47 +1,61 @@
 //
 // Created by Ishra on 23/11/2023.
 //
-
 #ifndef ASTEROIDS_PRJ_MODEL_HPP
 #define ASTEROIDS_PRJ_MODEL_HPP
+
+#include <vector>
+#include <iostream>
+#include <random>
+#include <SDL_keycode.h>
 
 #include "FlyingObject.hpp"
 #include "Spaceship.hpp"
 #include "Asteroid.hpp"
 #include "Missile.hpp"
 #include "Framework.hpp"
-#include <vector>
 
 class Model {
 
 private :
-    //List of Flying Objects
-    std::vector<FlyingObject *> flyingObjects;
-    std::vector<Asteroid *> asteroids;
+    std::vector<FlyingObject *> flyingObjects; //Liste des objets volants du jeu
+    std::vector<Asteroid *> asteroids; //Liste des astéroïdes du jeu
 
-    //Flying Objects
-    Spaceship* spaceship;
-    Missile* missile;
-    int nbAsteroids;
-    bool missileNotOnScreen;
+    Spaceship* spaceship; //Vaisseau du joueur
+    Missile* missile; //Missile
+    int nbAsteroids; //Nombre d'astéroïdes à l'écran
+    bool noMissile; //indicateur true s'il n'y a pas de missile à l'écran
 
 public :
-
+    ///////////////
+    // Constructeur
+    // -------
+    // * screenWidth, screenHeight : taille de l'écran
     Model(int screenWidth, int screenHeight);
+
+    /////////////////
+    // Update
     int Update(Framework* framework);
-    //------------Actions :
-    void ChooseAction(int action);
+
+    /////////////////
+    // ActionInput
+    // -------
+    // * input : touche appuyée par l'utilisateur
+    void ActionInput(int input);
     void SpeedUp();
     void SpeedDown();
     void RotateRight();
     void RotateLeft();
     void ShootMissile();
-    void InitializeAsteroids(double screenWidth, double sreenHeight);
 
-    //----------Getters :
+    /////////////////
+    // Initialisation des asteroïdes aléatoire
+    void InitialiseAsteroid(double screenWidth, double screenHeight);
+
+    /////////////////
+    // Getters
     std::vector<FlyingObject *> GetFlyingObjects();
-    std::vector<FlyingObject *> GetFlyingObjectsInGame(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework);
-
+    std::vector<FlyingObject *> GetFlyingObjectsJeu(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework);
 };
 
 #endif //ASTEROIDS_PRJ_MODEL_HPP

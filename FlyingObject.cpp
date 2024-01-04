@@ -3,12 +3,11 @@
 //
 
 #include "FlyingObject.hpp"
-#include <cmath>
 
 FlyingObject::FlyingObject(double x, double y, double size, double xSpeed, double ySpeed)
         : x(x), y(y), size(size), xSpeed(xSpeed), ySpeed(ySpeed) {}
 
-// Getters
+//____________________________________Getters and Setters____________________________________
 double FlyingObject::GetX() {
     return this->x;
 }
@@ -18,15 +17,12 @@ double FlyingObject::GetY() {
 double FlyingObject::GetSize() {
     return this->size;
 }
-
 double FlyingObject::GetXSpeed() {
     return xSpeed;
 }
 double FlyingObject::GetYSpeed() {
     return ySpeed;
 }
-
-// Setters
 void FlyingObject::SetX(double x) {
     this->x = x;
 }
@@ -44,11 +40,15 @@ void FlyingObject::SetYSpeed(double ySpeed) {
     this->ySpeed = ySpeed;
 }
 
+std::string FlyingObject::GetTypeName() const {
+    return "FlyingObject";
+}
+
+//____________________________________Move____________________________________
 void FlyingObject::Move() {
     this->x += this->xSpeed;
     this->y += this->ySpeed;
 }
-
 void FlyingObject::Move(double screenWidth, double screenHeight) {
     // mise à jour de la position
     this->x += this->xSpeed;
@@ -67,20 +67,15 @@ void FlyingObject::Move(double screenWidth, double screenHeight) {
     }
 }
 
-/////////////////////////////
-// Détermination de collision
-// calcul basé sur l'hypothèse que les objets sont sphériques
-// -------
-// * o1, o2 : les deux objets à tester
-// -------
-// Renvoie : true si les deux objets se touchent, false sinon
+//____________________________________Collide____________________________________
+// adresses (sans MVC - test)
 bool FlyingObject::Collide(FlyingObject &o1, FlyingObject &o2) {
     double dx = o1.GetX() - o2.GetX();
     double dy = o1.GetY() - o2.GetY();
     double distance = sqrt(dx * dx + dy * dy);
     return distance < o1.GetSize()/2 + o2.GetSize()/2;
 }
-
+// pointeurs (avec MVC)
 bool FlyingObject::Collide(FlyingObject *o1,FlyingObject *o2) {
     // Calcul de la distance entre els 2 centres des objets
     double distance = sqrt(pow(o2->x - o1->x, 2) + pow(o2->y - o1->y, 2));
@@ -95,12 +90,9 @@ bool FlyingObject::Collide(FlyingObject *o1,FlyingObject *o2) {
     }
 }
 
+//____________________________________DegToRad____________________________________
 double FlyingObject::DegToRad(double angle) {
     return ((M_PI)*(180-angle))/180;
-}
-
-std::string FlyingObject::GetTypeName() const {
-    return "FlyingObject";
 }
 
 

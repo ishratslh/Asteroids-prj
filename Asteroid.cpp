@@ -3,12 +3,11 @@
 //
 
 #include "Asteroid.hpp"
-#include <cmath>
 
 Asteroid::Asteroid(double x, double y, double size, double xSpeed, double ySpeed, double angle, int nbExplosions)
-        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle), nbExplosionsLeft(nbExplosions) {}
+        : FlyingObject(x, y, size, xSpeed, ySpeed), angle(angle), nbExplosionsRestant(nbExplosions) {}
 
-
+//____________________________________Getters and Setters____________________________________
 double Asteroid::GetXSpeed() {
     return xSpeed;
 }
@@ -18,19 +17,35 @@ double Asteroid::GetYSpeed() {
 double Asteroid::GetAngle() {
     return angle;
 }
-double Asteroid::GetNbExplosionsLeft() {
-    return nbExplosionsLeft;
+double Asteroid::GetNbExplosionsRestant() {
+    return nbExplosionsRestant;
+}
+std::string Asteroid::GetTypeName() const {
+    return "Asteroid";
+}
+void Asteroid::SetXSpeed(double xSpeed) {
+    this->xSpeed = xSpeed;
+}
+void Asteroid::SetYSpeed(double ySpeed) {
+    this->ySpeed = ySpeed;
+}
+void Asteroid::SetAngle(double angle) {
+    this->angle = angle;
+}
+void Asteroid::SetNbExplosionsRestant(int nbExplosionsRestant) {
+    this->nbExplosionsRestant = nbExplosionsRestant;
 }
 
-/*void Asteroid::Move() {
+//____________________________________Move____________________________________
+
+void Asteroid::Move() {
     x += xSpeed;
     y += ySpeed;
-}*/
+}
 
-// move astéroide avec réentrée
+// move asteroide avec réentrée
 void Asteroid::Move(double screenWidth, double screenHeight) {
     // mise à jour de la position
-
     double xspeed = Asteroid::GetXSpeed() * sin(FlyingObject::DegToRad(Asteroid::GetAngle()));
     double yspeed = Asteroid::GetYSpeed() * cos(FlyingObject::DegToRad(Asteroid::GetAngle()));
 
@@ -51,21 +66,17 @@ void Asteroid::Move(double screenWidth, double screenHeight) {
     }
 }
 
+//____________________________________Explode____________________________________
 Asteroid *Asteroid::Explode(double speed, double angle) {
-    if(this->nbExplosionsLeft>0){
-        //Each asteroids generated reduce the nbExplosionsLeft (means that when a missile hits an asteroids the nbOfExplosions reduce by 2)
-        double newSize = Asteroid::GetSize()/2; //Reduce size
-        Asteroid* newAsteroid = new Asteroid(Asteroid::GetX(), Asteroid::GetY(), newSize, Asteroid::GetXSpeed(), Asteroid::GetYSpeed(), angle,nbExplosionsLeft-2);
-        this->nbExplosionsLeft--;
+    if(this->nbExplosionsRestant>0){
+        //si un missile touche un asteroide, celui-ci se divise en 2 et nbExplosionsLeft est décrémenté
+        double newTaille = Asteroid::GetSize()/2; //Taille plus petite
+        Asteroid* newAsteroid = new Asteroid(Asteroid::GetX(), Asteroid::GetY(), newTaille, Asteroid::GetXSpeed(), Asteroid::GetYSpeed(), angle,nbExplosionsRestant-2);
+        this->nbExplosionsRestant--;
         return newAsteroid;
-
     }
     else{
         return nullptr;
     }
-}
-
-std::string Asteroid::GetTypeName() const {
-    return "Asteroid";
 }
 

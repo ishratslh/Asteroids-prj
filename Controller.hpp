@@ -5,29 +5,36 @@
 #ifndef ASTEROIDS_PRJ_CONTROLLER_HPP
 #define ASTEROIDS_PRJ_CONTROLLER_HPP
 
-
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include "Model.hpp"
 #include "View.hpp"
 #include "Framework.hpp"
 
-
 class Controller {
-public :
+    private :
+        Model* model; // modèle du jeu
+        Framework* framework; // framework du jeu
+        View* view; // vue du jeu
 
-    //---------------------Constructor :
-    Controller(int fps, int shipSize, int missileSize);
+    public :
+        //////////////////
+        // Constructeur
+        // -------
+        // * fps : nombre d'images par seconde
+        // * shipSize : taille du vaisseau
+        // * missileSize : taille des missiles
+        Controller(int fps, int shipSize, int missileSize);
 
-    void LaunchGame();
+        /////////////////
+        // Lancement du jeu
+        void LaunchGame();
 
-    //-------------Getters :
-    Framework* GetFramework();
-
-private :
-    Model* model;
-    Framework* framework;
-    View* view;
-
+        /////////////////
+        // Getters
+        Framework* GetFramework();
+        Model* GetModel();
+        View* GetView();
 };
 #endif //ASTEROIDS_PRJ_CONTROLLER_HPP

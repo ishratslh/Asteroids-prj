@@ -1,19 +1,15 @@
 //
 // Created by Ishra on 23/11/2023.
 //
-
-#include <iostream>
 #include "View.hpp"
 
 using namespace std;
 
-//------------------Constructors :
+//____________________________________Constructeur :_______________________________________
 
-View::View(Framework* framework) {
+View::View(Framework* framework) {}
 
-
-}
-
+//____________________________________Refresh :_______________________________________
 void View::Refresh(std::vector<FlyingObject *> flyingObjects,Framework* framework) {
 
     //----------------Test the list of FlyingObjects:
@@ -38,5 +34,4 @@ void View::Refresh(std::vector<FlyingObject *> flyingObjects,Framework* framewor
 
     }
     framework->Update();
-
 }

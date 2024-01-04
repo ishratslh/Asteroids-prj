@@ -1,22 +1,12 @@
 //
 // Created by Ishra on 23/11/2023.
 //
-
-#include <iostream>
-#include <random>
-#include <SDL_keycode.h>
 #include "Model.hpp"
-#include "Spaceship.hpp"
-#include "Asteroid.hpp"
-#include "Missile.hpp"
-#include "FlyingObject.hpp"
-
 using namespace std;
 
-//-------------------------------------------------------------------Constructors :
+//____________________________________Constructeur :_______________________________________
 Model::Model(int screenWidth, int screenHeight) {
-
-    //----------------Create Spaceship :
+    //Paramètres du spaceship :
     double xS = screenWidth / 4.0;
     double yS = screenHeight / 2.0;
     double sizeS = 60.0;
@@ -24,56 +14,49 @@ Model::Model(int screenWidth, int screenHeight) {
     double speedYS = 1.0;
     double angleS = 0.0;
     this->spaceship = new Spaceship(xS,yS,sizeS,speedXS,speedYS, angleS);
-    //-------------------------------
 
-    //-----------------Create Asteroid :
+    //Generation des asteroides :
     this->nbAsteroids = 5;
     for(int i = 0; i <nbAsteroids; i++){
-        InitializeAsteroids(screenWidth,screenHeight);
+        InitialiseAsteroid(screenWidth,screenHeight);
     }
     flyingObjects.insert(flyingObjects.end(), asteroids.begin(), asteroids.end());
-    //----------------------------------
 
-    //Adding them to the flyingObjects list
+    // Ajout du spaceship à la liste des flyingObjects
     flyingObjects.push_back(spaceship);
 
-    this->missileNotOnScreen=false;
-
-
-
+    this->noMissile=false;
 }
-//-----------------------------------------------------------------------------
 
 
-
+//____________________________________Update :_______________________________________
 int Model::Update(Framework* framework) {
+    //Mise à jour des flyingObjects:
+    Model::GetFlyingObjectsJeu(flyingObjects, framework);
 
-    //Update the list of Objects :
-    Model::GetFlyingObjectsInGame(flyingObjects, framework);
-    //Move the objects (different move methods so we need dynamic cast):
+    //Dynamic cast des objets de flyingObjects pour l'appel de Move() (car différente selon l'objet)
     for (FlyingObject* object : flyingObjects){
-        if(object!=nullptr){
-            if (object->GetTypeName()=="Missile"){
-                Missile* missile = dynamic_cast<Missile*>(object); // Cast to Missile
+        if (object != nullptr){
+            if (object->GetTypeName() == "Missile"){
+                Missile* missile = dynamic_cast<Missile*>(object);
                 missile->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
                 if (missile->NotOnScreen(framework->GetScreenWidth(), framework->GetScreenHeight())){
-                    this->missileNotOnScreen= true;
+                    this->noMissile= true;
                 }
             }
             else if(object->GetTypeName()=="Asteroid"){
-                Asteroid* asteroid = dynamic_cast<Asteroid*>(object); // Cast to Asteroid
+                Asteroid* asteroid = dynamic_cast<Asteroid*>(object);
                 asteroid->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
             }
             else if(object->GetTypeName()=="Spaceship"){
-                Spaceship* spaceship = dynamic_cast<Spaceship*>(object); // Cast to Spaceship
+                Spaceship* spaceship = dynamic_cast<Spaceship*>(object);
                 spaceship->Move(framework->GetScreenWidth(), framework->GetScreenHeight());
             }
         }
 
     }
 
-
-    // Test collisions between all missiles and all asteroids
+    // Vérification des collisions entre tous les objets
     for (int i = 0; i < flyingObjects.size(); ++i) {
         FlyingObject* object = flyingObjects[i];
         if (object != nullptr && object->GetTypeName() == "Asteroid") {
@@ -86,7 +69,7 @@ int Model::Update(Framework* framework) {
                         Asteroid* asteroidToExplode = dynamic_cast<Asteroid*>(object); // Cast to Asteroid
                         Missile* missile = dynamic_cast<Missile*>(otherObject); // Cast to Missile
                         //To avoid nullptr in the list
-                        if(asteroidToExplode->GetNbExplosionsLeft()>=2){
+                        if(asteroidToExplode->GetNbExplosionsRestant()>=2){
                             //Add the two other asteroids
                             flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetXSpeed(),missile->GetAngle()+30));
                             flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetYSpeed(),missile->GetAngle()-30));
@@ -126,68 +109,56 @@ int Model::Update(Framework* framework) {
         }
     }
     return 0;
-
-    //Test if there are still Asteroids in the Level
-
-
 }
-//--------------------------------------------------------------------------------
 
 
-//-----------------Actions :
-void Model::ChooseAction(int action) {
-    switch (action) {
-        case SDLK_UP:
+//____________________________________Actions :_______________________________________
+void Model::ActionInput(int input) {
+    switch (input) {
+        case SDLK_UP: //si la touche appuyée est la flèche du haut, on augmente la vitesse du vaisseau
             Model::SpeedUp();
             break;
-        case SDLK_DOWN:
+        case SDLK_DOWN: //si la touche appuyée est la flèche du bas, on diminue la vitesse du vaisseau
             Model::SpeedDown();
             break;
-        case SDLK_RIGHT:
-            Model::RotateRight();
-            break;
-        case SDLK_LEFT:
+        case SDLK_LEFT: //si la touche appuyée est la flèche de gauche, on fait pivoter le vaisseau vers la gauche
             Model::RotateLeft();
             break;
-        case SDLK_SPACE:
+        case SDLK_RIGHT: //si la touche appuyée est la flèche de droite, on fait pivoter le vaisseau vers la droite
+            Model::RotateRight();
+            break;
+        case SDLK_SPACE: //si la touche appuyée est la barre d'espace, on tire un missile
             Model::ShootMissile();
             break;
-        case SDLK_ESCAPE:
+        case SDLK_ESCAPE: //si la touche appuyée est la touche échap, on quitte le jeu
             SDL_Quit();
+            std::cout << "Game Over : abandon du joueur" << std::endl;
             exit(0);
             break;
-
-
     }
 }
-
 
 void Model::SpeedUp() {
     spaceship->SpeedUp(10);
 }
-
 void Model::SpeedDown() {
     spaceship->SpeedDown(10);
 }
-
-void Model::RotateRight() {
-    spaceship->Rotate(20);
-}
-
 void Model::RotateLeft() {
     spaceship->Rotate(-20);
 }
-
+void Model::RotateRight() {
+    spaceship->Rotate(20);
+}
 void Model::ShootMissile() {
-    bool noMissilesOnScreen = true;
+    bool noMissile = true;
     for (const FlyingObject* object : flyingObjects) {
         if (object != nullptr && object->GetTypeName() == "Missile") {
-            noMissilesOnScreen = false;
+            noMissile = false;
             break;
         }
     }
-
-    if (noMissilesOnScreen) {
+    if (noMissile) {
         this->missile = new Missile(spaceship->GetX(), spaceship->GetY(), 10, 30, spaceship->GetAngle());
         flyingObjects.push_back(missile);
         //std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
@@ -195,9 +166,7 @@ void Model::ShootMissile() {
     }
 }
 
-//------------------------------------------
-
-//---------------------Getters:
+//____________________________________Getters:____________________________________
 std::vector<FlyingObject *> Model::GetFlyingObjects() {
     std::vector<FlyingObject*> allFlyingObjects(flyingObjects.begin(), flyingObjects.end());
     //Add the list of vectors of asteroids
@@ -205,10 +174,7 @@ std::vector<FlyingObject *> Model::GetFlyingObjects() {
     return allFlyingObjects;
 }
 
-
-
-std::vector<FlyingObject*> Model::GetFlyingObjectsInGame(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework) {
-
+std::vector<FlyingObject*> Model::GetFlyingObjectsJeu(std::vector<FlyingObject*>& allFlyingObjects, Framework* framework) {
     // Check all the objects in the game
     for (auto it = flyingObjects.begin(); it != flyingObjects.end();) {
         FlyingObject* object = *it;
@@ -227,58 +193,56 @@ std::vector<FlyingObject*> Model::GetFlyingObjectsInGame(std::vector<FlyingObjec
         }
         ++it;
     }
-
     return flyingObjects;
 }
 
-void Model::InitializeAsteroids(double screenWidth, double screenHeight) {
-    //---Espace de creation :
+void Model::InitialiseAsteroid(double screenWidth, double screenHeight) {
+    //---Initialisation des variables - distribution espace :
     std::uniform_int_distribution<int> spaceDistribution(0, 7);
     std::random_device generator;
-    int spaceToUse = spaceDistribution(generator);
+    int espace = spaceDistribution(generator);
     std::uniform_real_distribution<double> xDistribution(0.0, screenWidth);
     std::uniform_real_distribution<double> yDistribution(0.0, screenHeight);
 
-    //---Assignement des espaces :
-    if(spaceToUse == 0){
+    if(espace == 0){
         std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
     }
-    else if(spaceToUse == 1){
+    else if(espace == 1){
         std::uniform_real_distribution<double> xDistribution(screenWidth/3,2*screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
     }
-    else if(spaceToUse == 2){
+    else if(espace == 2){
         std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(0.0,screenHeight/3);
     }
-    else if(spaceToUse == 3){
+    else if(espace == 3){
         std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(screenHeight/3,2*screenHeight/3);
     }
-    else if(spaceToUse == 4){
+    else if(espace == 4){
         std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(screenHeight/3,2*screenHeight/3);
     }
-    else if(spaceToUse == 5){
+    else if(espace == 5){
         std::uniform_real_distribution<double> xDistribution(0.0,screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
     }
-    else if(spaceToUse == 6){
+    else if(espace == 6){
         std::uniform_real_distribution<double> xDistribution(screenWidth/3,2*screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
     }
-    else if(spaceToUse == 7){
+    else if(espace == 7){
         std::uniform_real_distribution<double> xDistribution(2*screenWidth/3,3*screenWidth/3);
         std::uniform_real_distribution<double> yDistribution(2*screenHeight/3,3*screenHeight/3);
     }
 
-    double xToUse = xDistribution(generator);
-    double yToUse = yDistribution(generator);
+    double x = xDistribution(generator);
+    double y = yDistribution(generator);
     std::uniform_int_distribution<int> angleValues(-180, 180);
     int angle = angleValues(generator);
 
-    Asteroid* asteroidGenerated = new Asteroid(xToUse,yToUse,100, 10, 3, angle, 2);
-    asteroids.push_back(asteroidGenerated);//add the asteroids generated to list asteroids
+    Asteroid* newAsteroid = new Asteroid(x,y,100, 10, 3, angle, 2);
+    asteroids.push_back(newAsteroid);//ajout de l'asteroid à la liste des asteroids
     //flyingObjects.push_back(asteroidGenerated);
 }
