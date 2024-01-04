@@ -17,6 +17,7 @@ class Model {
 private :
     //List of Flying Objects
     std::vector<FlyingObject *> flyingObjects;
+    std::vector<Asteroid *> asteroids;
 
     //Flying Objects
     Spaceship* spaceship;

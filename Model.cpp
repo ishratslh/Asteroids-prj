@@ -31,6 +31,7 @@ Model::Model(int screenWidth, int screenHeight) {
     for(int i = 0; i <nbAsteroids; i++){
         InitializeAsteroids(screenWidth,screenHeight);
     }
+    flyingObjects.insert(flyingObjects.end(), asteroids.begin(), asteroids.end());
     //----------------------------------
 
     //Adding them to the flyingObjects list
@@ -81,11 +82,21 @@ int Model::Update(Framework* framework) {
                 if (otherObject != nullptr && otherObject->GetTypeName() == "Missile") {
                     bool collisionWithMissile = FlyingObject::Collide(object, otherObject);
                     if (collisionWithMissile) {
-                        // Remove Asteroid from the vector
+                        //Dynamic cast to access the specific functions
+                        Asteroid* asteroidToExplode = dynamic_cast<Asteroid*>(object); // Cast to Asteroid
+                        Missile* missile = dynamic_cast<Missile*>(otherObject); // Cast to Missile
+                        //To avoid nullptr in the list
+                        if(asteroidToExplode->GetNbExplosionsLeft()>=2){
+                            //Add the two other asteroids
+                            flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetXSpeed(),missile->GetAngle()+30));
+                            flyingObjects.push_back(asteroidToExplode->Explode(asteroidToExplode->GetYSpeed(),missile->GetAngle()-30));
+                        }
+
+                        // Remove Missile from the vector
                         flyingObjects.erase(flyingObjects.begin() + j);
                         delete otherObject;
                         nbAsteroids--;
-                        // Delete the missile object
+                        // Delete the asteroid object
                         flyingObjects.erase(flyingObjects.begin() + i);
                         delete object;
                     }
@@ -179,8 +190,8 @@ void Model::ShootMissile() {
     if (noMissilesOnScreen) {
         this->missile = new Missile(spaceship->GetX(), spaceship->GetY(), 10, 30, spaceship->GetAngle());
         flyingObjects.push_back(missile);
-        std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
-        std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
+        //std::cout << "Spaceship angle: " << spaceship->GetAngle() << std::endl;
+        //std::cout << "Missile angle: " << missile->GetAngle() << std::endl;
     }
 }
 
@@ -188,7 +199,10 @@ void Model::ShootMissile() {
 
 //---------------------Getters:
 std::vector<FlyingObject *> Model::GetFlyingObjects() {
-    return flyingObjects;
+    std::vector<FlyingObject*> allFlyingObjects(flyingObjects.begin(), flyingObjects.end());
+    //Add the list of vectors of asteroids
+    //allFlyingObjects.insert(allFlyingObjects.end(), asteroids.begin(), asteroids.end());
+    return allFlyingObjects;
 }
 
 
@@ -264,7 +278,7 @@ void Model::InitializeAsteroids(double screenWidth, double screenHeight) {
     std::uniform_int_distribution<int> angleValues(-180, 180);
     int angle = angleValues(generator);
 
-    Asteroid* asteroidGenerated = new Asteroid(xToUse,yToUse,100, 10, 3, angle);
-    flyingObjects.push_back(asteroidGenerated);
-    std::cout<<"Generated an asteroid with x and y values " << xToUse << "," << yToUse << std::endl;
+    Asteroid* asteroidGenerated = new Asteroid(xToUse,yToUse,100, 10, 3, angle, 2);
+    asteroids.push_back(asteroidGenerated);//add the asteroids generated to list asteroids
+    //flyingObjects.push_back(asteroidGenerated);
 }
